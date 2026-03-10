@@ -19,6 +19,9 @@ public partial class Card : MonoBehaviour, IClickable
         }
 
         transform.position = position + dragging.Offset;
+
+
+        asdasjdlkajsjd
     }
 
     public void ReleaseClick()
