@@ -31,6 +31,14 @@ public partial class ClickHandler : MonoBehaviour
             }
 
             Debug.Log($"Player cliked on {hit.gameObject}");
+            var clickable = hit.GetComponent<IClickable>();
+            if (clickable is null)
+            {
+                Debug.Log($"Clicked object is not {nameof(IClickable)}");
+                return;
+            }
+
+            clickable.OnClick(new ClickEvent { Target = hit.gameObject });
         }
     }
 }
