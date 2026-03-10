@@ -40,7 +40,7 @@ public partial class ClickHandler : MonoBehaviour
             }
 
             currClicked = clickable;
-            clickable.Click(new ClickEvent { Target = hit.gameObject });
+            clickable.Click(new ClickEvent(hit, clickPos));
             return;
         }
 

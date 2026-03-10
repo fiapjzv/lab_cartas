@@ -3,10 +3,12 @@ using UnityEngine;
 public partial class Card : MonoBehaviour, IClickable
 {
     private bool isDragging;
+    private Vector2 draggingOffset;
 
     public void Click(ClickEvent click)
     {
         isDragging = true;
+        draggingOffset = click.Offset;
         Debug.Log($"Starting to drag: {this}");
     }
 
@@ -18,7 +20,7 @@ public partial class Card : MonoBehaviour, IClickable
             return;
         }
 
-        transform.position = position;
+        transform.position = position + draggingOffset;
     }
 
     public void ReleaseClick()
