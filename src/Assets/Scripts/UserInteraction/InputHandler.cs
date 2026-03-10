@@ -57,7 +57,8 @@ public partial class ClickHandler : MonoBehaviour
 
         if (pointer.press.wasReleasedThisFrame)
         {
-            currClicked.ReleaseClick();
+            var pointerPos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
+            currClicked.ReleaseClick(pointerPos);
             currClicked = null;
         }
     }

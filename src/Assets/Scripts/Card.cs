@@ -27,7 +27,7 @@ public partial class Card : MonoBehaviour, IClickable
         transform.position = position + dragging.Offset;
     }
 
-    public void ReleaseClick()
+    public void ReleaseClick(Vector2 pointerPos)
     {
         // 1. verificar se a posição do mouse está numa zona
         // 2. se não estiver => voltar pra zona anterior
