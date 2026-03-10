@@ -29,6 +29,11 @@ public partial class Card : MonoBehaviour, IClickable
 
     public void ReleaseClick()
     {
+        // 1. verificar se a posição do mouse está numa zona
+        // 2. se não estiver => voltar pra zona anterior
+        // 3. se estiver => verificar se pode jogar lá
+        // 4. se não puder => voltar pra zona anterior
+        // 5. se puder => colocar na nova zona
         dragging = null;
         Debug.Log($"Not dragging anymore: {this}");
     }
