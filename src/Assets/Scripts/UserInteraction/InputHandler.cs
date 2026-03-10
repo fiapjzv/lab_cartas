@@ -4,6 +4,7 @@ using UnityEngine.InputSystem;
 public partial class ClickHandler : MonoBehaviour
 {
     private Camera cam;
+    private IClickable? currClicked;
 
     void Awake()
     {
@@ -38,7 +39,26 @@ public partial class ClickHandler : MonoBehaviour
                 return;
             }
 
-            clickable.OnClick(new ClickEvent { Target = hit.gameObject });
+            currClicked = clickable;
+            clickable.Click(new ClickEvent { Target = hit.gameObject });
+            return;
+        }
+
+        if (currClicked is null)
+        {
+            return;
+        }
+
+        if (pointer.press.isPressed)
+        {
+            var mousePos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
+            currClicked.DragTo(mousePos);
+        }
+
+        if (pointer.press.wasReleasedThisFrame)
+        {
+            currClicked.ReleaseClick();
+            currClicked = null;
         }
     }
 }

@@ -1,4 +1,8 @@
+using UnityEngine;
+
 public interface IClickable
 {
-    void OnClick(ClickEvent clickEvent);
+    void Click(ClickEvent click);
+    void DragTo(Vector2 position);
+    void ReleaseClick();
 }
