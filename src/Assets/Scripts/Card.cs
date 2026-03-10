@@ -1,3 +1,5 @@
+using System;
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 public partial class Card : MonoBehaviour, IClickable
@@ -29,13 +31,33 @@ public partial class Card : MonoBehaviour, IClickable
 
     public void ReleaseClick(Vector2 pointerPos)
     {
-        // 1. verificar se a posição do mouse está numa zona
-        // 2. se não estiver => voltar pra zona anterior
-        // 3. se estiver => verificar se pode jogar lá
-        // 4. se não puder => voltar pra zona anterior
-        // 5. se puder => colocar na nova zona
+        if (!IsInCardZone(pointerPos, out ICardZone newZone))
+        {
+            ReturnToPrevCardZone();
+            return;
+        }
+
+        if (newZone.TryAdd(this))
+        {
+            cardZone = newZone;
+        }
+        else
+        {
+            ReturnToPrevCardZone();
+        }
+
         dragging = null;
         Debug.Log($"Not dragging anymore: {this}");
+    }
+
+    private bool IsInCardZone(Vector2 pointerPos, [NotNullWhen(true)] out ICardZone newZone)
+    {
+        throw new NotImplementedException();
+    }
+
+    private void ReturnToPrevCardZone()
+    {
+        throw new NotImplementedException();
     }
 
     private bool IsDragging()
