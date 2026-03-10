@@ -1,3 +1,4 @@
 # TODO
 
-Pasta com **coisas a fazer** ou `to do`. Aqui colocamos arquivos com ideias ou coisas que estamos trabalhando.
+- [ ] arrastar carta pela tela com o mouse
+- [ ] saber em que parte da carta foi clicado
