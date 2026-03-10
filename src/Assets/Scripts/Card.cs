@@ -1,4 +1,3 @@
-using System;
 using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
@@ -33,7 +32,7 @@ public partial class Card : MonoBehaviour, IClickable
     {
         if (!IsInCardZone(pointerPos, out ICardZone newZone))
         {
-            ReturnToPrevCardZone();
+            MoveToPrevCardZone();
             return;
         }
 
@@ -43,21 +42,32 @@ public partial class Card : MonoBehaviour, IClickable
         }
         else
         {
-            ReturnToPrevCardZone();
+            MoveToPrevCardZone();
         }
 
         dragging = null;
         Debug.Log($"Not dragging anymore: {this}");
     }
 
-    private bool IsInCardZone(Vector2 pointerPos, [NotNullWhen(true)] out ICardZone newZone)
+    private bool IsInCardZone(Vector2 pointerPos, [NotNullWhen(true)] out ICardZone? newZone)
     {
-        throw new NotImplementedException();
+        var hits = Physics2D.OverlapPointAll(pointerPos);
+        foreach (var hit in hits)
+        {
+            if (hit.TryGetComponent<ICardZone>(out newZone))
+            {
+                Debug.Log($"Card released inside card zone {newZone}");
+                return true;
+            }
+        }
+        newZone = null;
+        Debug.Log("Card released outsize card zones");
+        return false;
     }
 
-    private void ReturnToPrevCardZone()
+    private void MoveToPrevCardZone()
     {
-        throw new NotImplementedException();
+        Debug.LogWarning("TODO!");
     }
 
     private bool IsDragging()
