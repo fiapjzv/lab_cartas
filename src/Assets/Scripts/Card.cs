@@ -4,6 +4,12 @@ public partial class Card : MonoBehaviour, IClickable
 {
     private ClickEvent? dragging;
 
+    /**
+     * <inheritdoc cref="ICardZone"/>
+     * <remarks>A carta deve ser retornada a sua área se o jogador tentar movê-la para uma área inválida.</remarks>
+     * */
+    private ICardZone? cardZone;
+
     public void Click(ClickEvent click)
     {
         dragging = click;
