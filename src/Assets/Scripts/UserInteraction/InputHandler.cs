@@ -22,8 +22,8 @@ public partial class ClickHandler : MonoBehaviour
 
         if (pointer.press.wasPressedThisFrame)
         {
-            var clickPos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
-            var hit = Physics2D.OverlapPoint(clickPos);
+            var pointerPos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
+            var hit = Physics2D.OverlapPoint(pointerPos);
 
             if (hit is null)
             {
@@ -40,7 +40,7 @@ public partial class ClickHandler : MonoBehaviour
             }
 
             currClicked = clickable;
-            clickable.Click(new ClickEvent(hit, clickPos));
+            clickable.Click(new ClickEvent(hit, pointerPos));
             return;
         }
 
@@ -51,8 +51,8 @@ public partial class ClickHandler : MonoBehaviour
 
         if (pointer.press.isPressed)
         {
-            var mousePos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
-            currClicked.DragTo(mousePos);
+            var pointerPos = cam.ScreenToWorldPoint(pointer.position.ReadValue());
+            currClicked.DragTo(pointerPos);
         }
 
         if (pointer.press.wasReleasedThisFrame)
