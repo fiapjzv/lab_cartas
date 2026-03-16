@@ -1,5 +1,6 @@
 using UnityEngine;
 
+///<summary>Evento que marca o clique em uma carta.</summary>
 public class ClickEvent
 {
     ///<summary>Vetor de distância entre o click e o centro do objeto que foi clicado.</summary>

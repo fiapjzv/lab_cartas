@@ -3,18 +3,25 @@ using UnityEngine;
 
 public partial class Card : MonoBehaviour, IClickable
 {
+    /// <inheritdoc cref="ClickEvent"/>
+    /// <remarks>Vai ser "null" caso não estejamos arrastando a carta.</remarks>
     private ClickEvent? dragging;
 
-    /**
-     * <inheritdoc cref="ICardZone"/>
-     * <remarks>A carta deve ser retornada a sua área se o jogador tentar movê-la para uma área inválida.</remarks>
-     * */
+    /// <inheritdoc cref="ICardZone"/>
+    /// <remarks>A carta deve ser retornada a sua área se o jogador tentar movê-la para uma área inválida.</remarks>
     private ICardZone? cardZone;
+
+    /**
+     * Armazena a última posição da carta, para que possamos voltar a ela caso o jogador não coloque a carta em
+     * uma posição válida.
+     * */
+    private Vector3 lastPos;
 
     public void Click(ClickEvent click)
     {
         dragging = click;
-        Debug.Log($"Starting to drag: {this}");
+        lastPos = transform.position;
+        Debug.Log($"Starting to drag: {this} from {lastPos}");
     }
 
     public void DragTo(Vector2 position)
@@ -39,6 +46,7 @@ public partial class Card : MonoBehaviour, IClickable
         if (newZone.TryAdd(this))
         {
             cardZone = newZone;
+            lastPos = transform.position;
         }
         else
         {
@@ -67,7 +75,8 @@ public partial class Card : MonoBehaviour, IClickable
 
     private void MoveToPrevCardZone()
     {
-        Debug.LogWarning("TODO!");
+        transform.position = lastPos;
+        Debug.LogWarning($"Moving card back to {lastPos}");
     }
 
     private bool IsDragging()
