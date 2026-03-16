@@ -1,11 +1,18 @@
-using Game.Core;
+using System;
+using System.Threading.Tasks;
 using UnityEngine;
 
-public class GameSetup : MonoBehaviour
+public partial class GameSetup : MonoBehaviour
 {
-    void Start()
+    [SerializeField]
+    private Camera mainCamPrefab;
+
+    private async Task Awake()
     {
-        var card = new CardDefinition("Some card");
-        Debug.Log($"Got card {card}");
+        SetupServices();
+        ShowLoading();
+        SetupCamera(mainCamPrefab);
+
+        await ConnectToServer();
     }
 }

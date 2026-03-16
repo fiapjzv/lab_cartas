@@ -105,6 +105,7 @@ ServerData
 
 # Compiled core library
 **/[Aa]ssets/[Ll]ib/*.dll
+**/[Aa]ssets/[Ll]ib/*.deps.json
 
 # VSCode settings
 .vscode/
