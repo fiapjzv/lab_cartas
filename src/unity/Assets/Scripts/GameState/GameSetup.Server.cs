@@ -1,7 +1,3 @@
-using System;
-using System.Threading.Tasks;
-using UnityEngine;
-
 public partial class GameSetup
 {
     /// <summary>Testa conexão com o servidor.</summary>
