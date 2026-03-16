@@ -11,11 +11,19 @@ Objetivo é fazer algo inspirado em [Marvel Snap](https://marvelsnap.com/) ou [B
 ```bash
 
  ├── src/                   # código fonte (projeto unity)
+     ├── unity/             # apresentação do projeto
+     ├── server/            # servidor autoritativo para multi-player
+     └── core/              # regras básicas do jogo
+ ├── prototype/             # código fonte da versão de protótipo do jogo (projeto unity)
  ├── docs/                  # documentação (GDD, guia de estilo, convenções de código, processo decisório)
  ├── todo/                  # tarefas a serem feitas ou ideias para fazer depois
  ├── refs/                  # referências e inspirações (screenshots, ideias de UX)
  └── README.md              # esse arquivo com uma visão geral do projeto
 ```
+
+> [!NOTE]  
+>  O objetivo de separar os projetos `unity`, `server` e `core` é manter o projeto Unity focado em **apresentação e
+> interação**, enquanto a lógica principal permanece desacoplada.
 
 ## Contribuição
 
