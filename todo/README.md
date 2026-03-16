@@ -10,3 +10,5 @@
 # TODO: V2
 
 - [ ] usando projeto de lógica em separado
+- [x] core: serviço de eventos
+- [ ] core: serviço de logger

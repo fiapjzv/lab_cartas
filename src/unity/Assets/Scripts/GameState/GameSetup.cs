@@ -1,7 +1,11 @@
+using Game.Core.Services;
+
 public partial class GameSetup : MonoBehaviour
 {
     [SerializeField]
     private Camera mainCamPrefab;
+
+    private IEvents events;
 
     private async Task Awake()
     {
