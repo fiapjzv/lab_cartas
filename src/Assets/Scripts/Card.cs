@@ -70,7 +70,7 @@ public partial class Card : MonoBehaviour, IClickable
 
         if (newZone.TryAdd(this))
         {
-            cardZone = newZone;
+            ChangeCardZone(newZone);
             lastPos = transform.position;
         }
         else
@@ -80,6 +80,16 @@ public partial class Card : MonoBehaviour, IClickable
 
         dragging = null;
         Debug.Log($"Not dragging anymore: {this}");
+    }
+
+    public void ChangeCardZone(ICardZone cardZone)
+    {
+        if (this.cardZone is not null)
+        {
+            this.cardZone.RemoveCard(this);
+        }
+
+        this.cardZone = cardZone;
     }
 
     private bool IsInCardZone(Vector2 pointerPos, [NotNullWhen(true)] out ICardZone? newZone)
