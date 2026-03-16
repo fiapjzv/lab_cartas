@@ -26,6 +26,12 @@ public partial class Card : MonoBehaviour, IClickable
     /// <inheritdoc cref="RollbackCardMove"/>
     private RollbackCardMove? rollbackCardMove;
 
+    void Awake()
+    {
+        var sprite = GetComponent<SpriteRenderer>();
+        sprite.sortingOrder = SpriteSortOrder.CARD;
+    }
+
     void Update()
     {
         rollbackCardMove?.ApplyRollbackMove(this, lastPos);

@@ -5,6 +5,12 @@ public partial class PlayerHand : MonoBehaviour, ICardZone
 {
     private readonly List<Card> cards = new();
 
+    void Awake()
+    {
+        var sprite = GetComponent<SpriteRenderer>();
+        sprite.sortingOrder = SpriteSortOrder.CARD_ZONE;
+    }
+
     public bool TryAdd(Card card)
     {
         if (cards.Count >= MAX_CARDS)
