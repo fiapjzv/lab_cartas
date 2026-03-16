@@ -11,14 +11,33 @@ public partial class Card : MonoBehaviour, IClickable
     /// <remarks>A carta deve ser retornada a sua área se o jogador tentar movê-la para uma área inválida.</remarks>
     private ICardZone? cardZone;
 
-    /**
-     * Armazena a última posição da carta, para que possamos voltar a ela caso o jogador não coloque a carta em
-     * uma posição válida.
-     * */
+    /// <summary>
+    /// Armazena a última posição da carta, para que possamos voltar a ela caso o jogador não coloque a carta em
+    /// uma posição válida.
+    /// </summary>
     private Vector3 lastPos;
+
+    /// <summary>
+    /// Caso seja "true" o jogador pode interagir com a carta.
+    /// Caso "false" ela está no meio de uma animação ou algum outro estado em que não se pode interagir com ela.
+    /// </summary>
+    private bool canInteract = true;
+
+    /// <inheritdoc cref="RollbackCardMove"/>
+    private RollbackCardMove? rollbackCardMove;
+
+    void Update()
+    {
+        rollbackCardMove?.ApplyRollbackMove(this, lastPos);
+    }
 
     public void Click(ClickEvent click)
     {
+        if (!canInteract)
+        {
+            return;
+        }
+
         dragging = click;
         lastPos = transform.position;
         Debug.Log($"Starting to drag: {this} from {lastPos}");
@@ -75,8 +94,22 @@ public partial class Card : MonoBehaviour, IClickable
 
     private void MoveToPrevCardZone()
     {
-        transform.position = lastPos;
-        Debug.LogWarning($"Moving card back to {lastPos}");
+        rollbackCardMove = new RollbackCardMove();
+        StartAnimation();
+        Debug.LogWarning($"Starting to move card back to {lastPos}");
+    }
+
+    public void StartAnimation()
+    {
+        canInteract = false;
+        Debug.Log("Starting animation");
+    }
+
+    public void EndAnimation()
+    {
+        Debug.Log("Ending animation");
+        canInteract = true;
+        rollbackCardMove = null;
     }
 
     private bool IsDragging()
