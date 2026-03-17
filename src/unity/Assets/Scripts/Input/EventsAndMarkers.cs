@@ -1,0 +1,34 @@
+/// <summary>Evento disparado quando ocorre um clique com o ponteiro (mouse ou dedo).</summary>
+/// <remarks>Exige que o objeto possua um component <see cref="IClickable" /></remarks>
+public readonly struct PointerClickEvt
+{
+    /// <summary>Collider2D que foi atingido pelo clique</summary>
+    public Collider2D Hit { get; init; }
+
+    /// <summary>Posição do ponteiro no momento do clique (em coordenadas de mundo).</summary>
+    public Vector3 PointerPos { get; init; }
+}
+
+/// <summary>Evento disparado durante o arraste do ponteiro "segurando" um objeto.</summary>
+/// <remarks>Exige que o objeto possua um component <see cref="IDraggable" /></remarks>
+public readonly struct PointerDragEvt
+{
+    /// <summary>GameObject sendo arrastado.</summary>
+    public GameObject Target { get; init; }
+
+    /// <summary>Posição atual do ponteiro durante o arraste (em coordenadas de mundo).</summary>
+    public Vector3 PointerPos { get; init; }
+}
+
+/// <summary>Evento disparado quando o ponteiro é liberado (fim do clique ou drag).</summary>
+public readonly struct PointerReleaseEvt
+{
+    /// <summary>Posição do ponteiro no momento da liberação (em coordenadas de mundo).</summary>
+    public Vector3 PointerPos { get; init; }
+}
+
+/// <summary>Marcador para objetos que podem ser clicados.</summary>
+public interface IClickable { }
+
+/// <summary>Marcador para objetos que podem ser arrastados.</summary>
+public interface IDraggable { }
