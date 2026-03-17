@@ -1,8 +1,10 @@
+using Game.Core.Services;
+
 public partial class GameSetup
 {
     /// <summary>Mostra a splash screen de loading.</summary>
-    private void ShowLoading()
+    private void ShowLoading(IGameLogger logger)
     {
-        Debug.Log("Loading components on screen!");
+        logger.Debug?.Log("Loading components on screen!");
     }
 }

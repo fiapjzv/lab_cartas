@@ -1,19 +1,19 @@
 using Game.Core.Services;
 using UnityDebug = UnityEngine.Debug;
 
-public class UnityLogger : Game.Core.Services.ILogger
+public class UnityLogger : IGameLogger
 {
     public IMsgLogger? Debug { get; }
     public IMsgLogger? Info { get; }
     public IExceptionMsgLogger? Warn { get; }
     public IExceptionMsgLogger? Error { get; }
 
-    public UnityLogger(Game.Core.Services.LogLevel lvl)
+    public UnityLogger(LogLvl lvl)
     {
-        Debug = lvl <= LogLevel.Debug ? new MsgLogger(UnityDebug.Log, LogLevel.Debug) : null;
-        Info = lvl <= LogLevel.Info ? new MsgLogger(UnityDebug.Log, LogLevel.Info) : null;
-        Warn = lvl <= LogLevel.Warn ? new ExMsgLogger(UnityDebug.LogWarning, LogLevel.Warn) : null;
-        Error = lvl <= LogLevel.Error ? new ExMsgLogger(UnityDebug.LogError, LogLevel.Error) : null;
+        Debug = lvl <= LogLvl.Debug ? new MsgLogger(UnityDebug.Log, LogLvl.Debug) : null;
+        Info = lvl <= LogLvl.Info ? new MsgLogger(UnityDebug.Log, LogLvl.Info) : null;
+        Warn = lvl <= LogLvl.Warn ? new ExMsgLogger(UnityDebug.LogWarning, LogLvl.Warn) : null;
+        Error = lvl <= LogLvl.Error ? new ExMsgLogger(UnityDebug.LogError, LogLvl.Error) : null;
     }
 
     private class MsgLogger : IMsgLogger
@@ -21,7 +21,7 @@ public class UnityLogger : Game.Core.Services.ILogger
         private readonly Action<string> log;
         private readonly string levelPrefix;
 
-        public MsgLogger(Action<string> log, LogLevel level)
+        public MsgLogger(Action<string> log, LogLvl level)
         {
             this.log = log;
             this.levelPrefix = level.ToString();
@@ -35,7 +35,7 @@ public class UnityLogger : Game.Core.Services.ILogger
 
     private class ExMsgLogger : MsgLogger, IExceptionMsgLogger
     {
-        public ExMsgLogger(Action<string> log, LogLevel level)
+        public ExMsgLogger(Action<string> log, LogLvl level)
             : base(log, level) { }
 
         public void Log(string message, Exception ex)

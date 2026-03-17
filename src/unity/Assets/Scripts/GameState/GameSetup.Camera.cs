@@ -1,10 +1,10 @@
+using Game.Core.Services;
+
 public partial class GameSetup
 {
-    private Camera mainCam;
-
-    private void SetupCamera(Camera camPrefab)
+    private void SetupCamera(Camera camPrefab, IGameLogger logger)
     {
-        mainCam = Instantiate(camPrefab);
+        var mainCam = Instantiate(camPrefab);
         logger.Debug?.Log("Main camera setup complete!");
     }
 }

@@ -3,17 +3,19 @@ using Game.Core.Services;
 public partial class GameSetup
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
-    private void SetupServices()
+    private IGameLogger SetupServices()
     {
         var logLvl =
 #if DEBUG
-        Game.Core.Services.LogLevel.Debug;
+        LogLvl.Debug;
 #else
-        Game.Core.Services.LogLevel.Info;
+        LogLvl.Info;
 #endif
-        logger = new UnityLogger(logLvl);
-        events = new Events(logger);
+        var logger = new UnityLogger(logLvl);
+        var events = new Events(logger);
 
+        Services.Setup(events, logger);
         logger.Info?.Log("Setup services complete");
+        return logger;
     }
 }

@@ -1,19 +1,14 @@
-using Game.Core.Services;
-
 public partial class GameSetup : MonoBehaviour
 {
     [SerializeField]
-    private Camera mainCamPrefab;
-
-    private IEvents events;
-    private Game.Core.Services.ILogger logger;
+    private Camera mainCamPrefab = null!;
 
     private async Task Awake()
     {
-        SetupServices();
-        ShowLoading();
-        SetupCamera(mainCamPrefab);
+        var logger = SetupServices();
+        ShowLoading(logger);
+        SetupCamera(mainCamPrefab, logger);
 
-        await ConnectToServer();
+        await ConnectToServer(logger);
     }
 }
