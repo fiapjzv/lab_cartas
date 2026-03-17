@@ -38,13 +38,13 @@ public interface IEvents
 /// <inheritdoc cref="IEvents"/>
 public partial class Events : IEvents
 {
-    private readonly ILogger _logger;
+    private readonly IGameLogger _logger;
 
     // NOTE: sendo thread-safe lockando o dicionário de handlers apenas em Subscribe
     private readonly object _subLock = new();
     private Dictionary<Type, object> _handlers = new();
 
-    public Events(ILogger? logger = null)
+    public Events(IGameLogger? logger = null)
     {
         _logger = logger ?? NullLogger.Instance;
     }
