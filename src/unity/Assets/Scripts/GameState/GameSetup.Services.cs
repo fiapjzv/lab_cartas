@@ -1,5 +1,3 @@
-using Game.Core.Services;
-
 public partial class GameSetup
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
@@ -14,7 +12,7 @@ public partial class GameSetup
         var logger = new UnityLogger(logLvl);
         var events = new Events(logger);
 
-        Services.Setup(events, logger);
+        Service.Setup(events, logger);
         logger.Info?.Log("Setup services complete");
         return logger;
     }

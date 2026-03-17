@@ -1,8 +1,6 @@
-using Game.Core.Services;
-
 /// <summary>Centro focal para registro de serviços.</summary>
 /// <remarks>Propriedades são preenchidas em <see cref="GameSetup.Awake"/>.</remarks>
-public class Services
+public static class Service
 {
     /// <inheritdoc cref="IGameLogger" />
     private static IGameLogger? _logger;

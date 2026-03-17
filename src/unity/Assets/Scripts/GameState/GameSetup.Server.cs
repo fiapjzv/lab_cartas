@@ -1,5 +1,3 @@
-using Game.Core.Services;
-
 public partial class GameSetup
 {
     /// <summary>Testa conexão com o servidor.</summary>
