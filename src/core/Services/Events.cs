@@ -44,10 +44,8 @@ public partial class Events : IEvents
     private readonly object _subLock = new();
     private Dictionary<Type, object> _handlers = new();
 
-    private Events(ILogger? logger = null)
+    public Events(ILogger? logger = null)
     {
         _logger = logger ?? NullLogger.Instance;
     }
-
-    public static IEvents Instance { get; } = new Events();
 }

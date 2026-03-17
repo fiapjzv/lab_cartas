@@ -5,6 +5,6 @@ public partial class GameSetup
     private void SetupCamera(Camera camPrefab)
     {
         mainCam = Instantiate(camPrefab);
-        Debug.Log("Main camera setup complete!");
+        logger.Debug?.Log("Main camera setup complete!");
     }
 }

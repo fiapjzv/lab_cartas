@@ -6,6 +6,7 @@ public partial class GameSetup : MonoBehaviour
     private Camera mainCamPrefab;
 
     private IEvents events;
+    private Game.Core.Services.ILogger logger;
 
     private async Task Awake()
     {

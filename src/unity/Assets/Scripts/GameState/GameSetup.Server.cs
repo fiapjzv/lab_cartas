@@ -5,6 +5,6 @@ public partial class GameSetup
     {
         // NOTE: essa espera de 2 segundos está simulando a conexão com o servidor
         await Task.Delay(2000);
-        Debug.Log("Server connection stablished!");
+        logger.Debug?.Log("Server connection stablished!");
     }
 }
