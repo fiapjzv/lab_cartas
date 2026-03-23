@@ -1,3 +1,5 @@
+using Game.Core.Services;
+
 public partial class GameSetup
 {
     /// <summary>Display main menu.</summary>
@@ -6,7 +8,7 @@ public partial class GameSetup
         logger.Info?.Log("Main menu rendered");
     }
 
-    private enum MenuItem
+    private enum MainMenuItem
     {
         QuickMatch,
         StoryMode,

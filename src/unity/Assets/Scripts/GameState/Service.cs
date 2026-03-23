@@ -1,3 +1,6 @@
+using System;
+using Game.Core.Services;
+
 /// <summary>Centro focal para registro de serviços.</summary>
 /// <remarks>Propriedades são preenchidas em <see cref="GameSetup.Awake"/>.</remarks>
 public static class Service

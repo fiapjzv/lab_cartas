@@ -1,3 +1,6 @@
+using UnityEngine;
+using UnityEngine.InputSystem;
+
 public partial class PointerHandler
 {
     void Update()
@@ -45,7 +48,7 @@ public partial class PointerHandler
         }
 
         _currClicked = hit.gameObject;
-        _events.Publish(new PointerClickEvt { Hit = hit, PointerPos = pointerPos });
+        _events.Publish(new PointerClickEvt(hit, pointerPos));
     }
 
     private void HandleObjDrag(Pointer pointer)
@@ -58,14 +61,14 @@ public partial class PointerHandler
         var pointerPos = _cam.ScreenToWorldPoint(pointer.position.ReadValue());
         if (_currClicked.HasComponent<IDraggable>())
         {
-            _events.Publish(new PointerDragEvt { Target = _currClicked, PointerPos = pointerPos });
+            _events.Publish(new PointerDragEvt(_currClicked, pointerPos));
         }
     }
 
     private void HandleObjRelease(Pointer pointer)
     {
         var pointerPos = _cam.ScreenToWorldPoint(pointer.position.ReadValue());
-        _events.Publish(new PointerReleaseEvt { PointerPos = pointerPos });
+        _events.Publish(new PointerReleaseEvt(pointerPos));
         _currClicked = null;
     }
 }

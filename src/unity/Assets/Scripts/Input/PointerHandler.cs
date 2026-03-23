@@ -1,3 +1,6 @@
+using Game.Core.Services;
+using UnityEngine;
+
 /// <summary>Gerencia o ponteiro do jogo: mouse ou dedo no celular.</summary>
 public partial class PointerHandler : MonoBehaviour
 {

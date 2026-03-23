@@ -1,3 +1,5 @@
+using Game.Core.Services;
+
 public partial class GameSetup
 {
     /// <summary>Mostra a splash screen de loading.</summary>

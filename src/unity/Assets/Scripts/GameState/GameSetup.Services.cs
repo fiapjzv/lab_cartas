@@ -1,3 +1,6 @@
+using Game.Core.Services;
+using UnityEngine.InputSystem;
+
 public partial class GameSetup
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>

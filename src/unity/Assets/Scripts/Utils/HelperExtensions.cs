@@ -1,3 +1,5 @@
+using UnityEngine;
+
 /// <summary>Extensões simples para qualidade de vida (escrever menos).</summary>
 public static class HelperExtensions
 {

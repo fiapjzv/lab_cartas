@@ -1,3 +1,5 @@
+using UnityEngine;
+
 [RequireComponent(typeof(SpriteRenderer))]
 [RequireComponent(typeof(Collider2D))]
 public partial class Clickable : MonoBehaviour
