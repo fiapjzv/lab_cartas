@@ -53,7 +53,7 @@ public partial class Scenes
     {
         return scene switch
         {
-            Scene.Menu => "MenuScene",
+            Scene.MainMenu => "MainMenuScene",
             Scene.Game => "GameScene",
             Scene.Story => "StoryScene",
             Scene.Bootstrap => "BootstrapScene",

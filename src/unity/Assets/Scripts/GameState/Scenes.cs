@@ -33,7 +33,7 @@ public partial class Scenes : IScenes
 public enum Scene
 {
     Bootstrap,
-    Menu,
+    MainMenu,
     Game,
     Story,
 }
