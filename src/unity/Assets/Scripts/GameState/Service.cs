@@ -2,11 +2,14 @@
 /// <remarks>Propriedades são preenchidas em <see cref="GameSetup.Awake"/>.</remarks>
 public static class Service
 {
-    /// <inheritdoc cref="IGameLogger" />
-    private static IGameLogger? _logger;
-
     /// <inheritdoc cref="IEvents" />
     private static IEvents? _events;
+
+    /// <inheritdoc cref="IScenes" />
+    private static IScenes? _scenes;
+
+    /// <inheritdoc cref="IGameLogger" />
+    private static IGameLogger? _logger;
 
     /// <summary>Retorna um serviço to tipo <paramtype cref="T"/></summary>
     /// <remarks>Propriedades são preenchidas em <see cref="GameSetup.Awake"/>.</remarks>
@@ -16,24 +19,21 @@ public static class Service
         return (T)ResolveService<T>();
     }
 
-    internal static void Setup(IEvents events, IGameLogger logger)
+    internal static void Setup(IEvents events, IScenes scenes, IGameLogger logger)
     {
         _events = events;
+        _scenes = scenes;
         _logger = logger;
     }
 
     private static object ResolveService<T>()
     {
-        if (typeof(T) == typeof(IGameLogger))
-        {
-            return _logger ?? throw new Exception($"Service {typeof(T)} not registered yet!");
-        }
+        object? svc =
+            typeof(T) == typeof(IEvents) ? _events
+            : typeof(T) == typeof(IScenes) ? _scenes
+            : typeof(T) == typeof(IGameLogger) ? _logger
+            : null;
 
-        if (typeof(T) == typeof(IEvents))
-        {
-            return _events ?? throw new Exception($"Service {typeof(T)} not registered yet!");
-        }
-
-        throw new Exception($"Unknown service: {typeof(T)}");
+        return (T)(svc ?? throw new Exception($"Service {typeof(T)} not registered yet!"));
     }
 }

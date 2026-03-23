@@ -5,10 +5,21 @@ public partial class GameSetup : MonoBehaviour
 
     private async Task Awake()
     {
-        var logger = SetupServices();
+        DontDestroyOnLoad(gameObject);
+
+        var (scenes, logger) = SetupServices();
         ShowLoading(logger);
         SetupCamera(mainCamPrefab, logger);
 
-        await ConnectToServer(logger);
+        await TestServerConn(logger);
+
+        // NOTE: this should load the menu
+        scenes.ChangeTo(Scene.Menu);
+    }
+
+    public enum Screen
+    {
+        Vertical,
+        Horizontal,
     }
 }
