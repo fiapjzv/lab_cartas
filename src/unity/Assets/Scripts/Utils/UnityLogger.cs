@@ -29,7 +29,7 @@ public class UnityLogger : IGameLogger
 
         public void Log(string message)
         {
-            log($"[{levelPrefix}] message");
+            log($"[{levelPrefix}] {message}");
         }
     }
 
