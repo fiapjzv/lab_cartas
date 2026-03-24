@@ -21,6 +21,6 @@ public partial class GameSetup : MonoBehaviour
         await TestServerConn(logger);
 
         // NOTE: this should load the menu
-        scenes.ChangeTo(Scene.MainMenu);
+        await scenes.ChangeTo(Scene.MainMenu);
     }
 }

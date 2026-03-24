@@ -1,18 +1,18 @@
-// <summary>Cena foi completamente carregada.</summary>
-public readonly struct SceneLoadedEvt
+// <summary>Cena começou a ser carregada.</summary>
+public readonly struct SceneLoadStartEvt
 {
     /// <inheritdoc cref="Scene" />
     public Scene Scene { get; }
 
-    /// <inheritdoc cref="SceneLoadedEvt" />
-    public SceneLoadedEvt(Scene scene)
+    /// <inheritdoc cref="SceneLoadStartEvt" />
+    public SceneLoadStartEvt(Scene scene)
     {
         Scene = scene;
     }
 }
 
 // <summary>Cena está sendo carregada.</summary>
-public readonly struct SceneLoadingEvt
+public readonly struct SceneLoadProgressEvt
 {
     /// <inheritdoc cref="Scene" />
     public Scene Scene { get; }
@@ -20,10 +20,23 @@ public readonly struct SceneLoadingEvt
     /// <summary>Progresso atual do carregamento (0.0 a 1.0).</summary>
     public float Progress { get; }
 
-    /// <inheritdoc cref="SceneLoadingEvt" />
-    public SceneLoadingEvt(Scene scene, float progress)
+    /// <inheritdoc cref="SceneLoadProgressEvt" />
+    public SceneLoadProgressEvt(Scene scene, float progress)
     {
         Scene = scene;
         Progress = progress;
+    }
+}
+
+// <summary>Cena foi completamente carregada.</summary>
+public readonly struct SceneLoadCompleteEvt
+{
+    /// <inheritdoc cref="Scene" />
+    public Scene Scene { get; }
+
+    /// <inheritdoc cref="SceneLoadCompleteEvt" />
+    public SceneLoadCompleteEvt(Scene scene)
+    {
+        Scene = scene;
     }
 }

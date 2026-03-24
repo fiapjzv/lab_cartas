@@ -1,4 +1,3 @@
-using System;
 using UnityEngine.UIElements;
 
 namespace Game.UI
@@ -12,25 +11,31 @@ namespace Game.UI
             _progressBar = Guard.ElementIsPresent(root, PROGRESS_FILL_UI_ELEM, _logger);
             _progressBar.style.display = DisplayStyle.None;
 
-            _events.Subscribe<SceneLoadingEvt>(IncreaseProgressBar);
-            _events.Subscribe<SceneLoadedEvt>(FillProgressBar);
+            _events.Subscribe<SceneLoadProgressEvt>(IncreaseProgressBar);
+            _events.Subscribe<SceneLoadCompleteEvt>(FillProgressBar);
         }
 
         private void ResetProgressBar()
         {
+            _logger.Debug?.Log("Resetting loading progress bar.");
             _progressBar.style.width = 0;
+            _progressBar.style.display = DisplayStyle.Flex;
         }
 
-        private void IncreaseProgressBar(SceneLoadingEvt evt)
+        private void IncreaseProgressBar(SceneLoadProgressEvt evt)
         {
-            var progressPercent = Length.Percent(evt.Progress);
+            DoIncreaseProgressBar(Length.Percent(evt.Progress * 100));
+        }
+
+        private void FillProgressBar(SceneLoadCompleteEvt evt)
+        {
+            DoIncreaseProgressBar(Length.Percent(100));
+        }
+
+        private void DoIncreaseProgressBar(Length progressPercent)
+        {
             _logger.Debug?.Log($"Increasing progress bar to {progressPercent}");
             _progressBar.style.width = progressPercent;
-        }
-
-        private void FillProgressBar(SceneLoadedEvt evt)
-        {
-            _progressBar.style.width = Length.Percent(100);
         }
 
         private const string PROGRESS_FILL_UI_ELEM = "progress-fill";
