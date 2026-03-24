@@ -16,6 +16,7 @@ namespace Game.UI
             var root = uiDocument.rootVisualElement;
 
             EnsureSpinnerElement(root);
+            EnsureLoadingBar(root);
         }
 
         private void OnDisable()
@@ -26,6 +27,7 @@ namespace Game.UI
         private void OnEnable()
         {
             ShowSpinner();
+            ResetProgressBar();
         }
     }
 }
