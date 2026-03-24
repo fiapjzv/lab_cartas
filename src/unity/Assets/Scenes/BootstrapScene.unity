@@ -164,6 +164,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GameSetup
   mainCamPrefab: {fileID: 6321540381128871353, guid: 94e89eb9ef42ca8f1ba28695ac808db3, type: 3}
+  _loadingScreen: {fileID: 3715870337117947998, guid: f102bb5fa6ed311639514c08d000672d, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

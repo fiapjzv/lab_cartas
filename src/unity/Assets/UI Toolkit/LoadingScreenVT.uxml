@@ -1,0 +1,17 @@
+<ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
+    <Style src="project://database/Assets/UI%20Toolkit/LoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=69eebd3cca1b3feb9b0d0e23107ac2a1&amp;type=3#LoadingScreenStyle"/>
+    <ui:VisualElement name="root">
+        <ui:VisualElement name="title-box">
+            <ui:Label name="title-text" text="Nome do Jogo!"/>
+        </ui:VisualElement>
+        <ui:VisualElement name="footer">
+            <ui:VisualElement name="loading-row">
+                <ui:Label name="loading-text" text="LOADING..."/>
+                <ui:VisualElement name="spinner"/>
+            </ui:VisualElement>
+            <ui:VisualElement name="progress-bar">
+                <ui:VisualElement name="progress-fill"/>
+            </ui:VisualElement>
+        </ui:VisualElement>
+    </ui:VisualElement>
+</ui:UXML>
