@@ -15,6 +15,9 @@ public partial class Events
                 : new List<Action<TEvt>> { action };
 
             _handlers = new Dictionary<Type, object>(_handlers) { [type] = handlersList };
+            _logger.Debug?.Log(
+                $"Event {type.Name} subscribed with {action.TryGetName()}! Total subscriptions {handlersList.Count}"
+            );
         }
 
         return new Subscription<TEvt>(this, action);
