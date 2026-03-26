@@ -5,8 +5,15 @@
     <Style src="project://database/Assets/UI%20Toolkit/Effects.uss?fileID=7433441132597879392&amp;guid=794a89f89e5ba87f784d5cbc225dfcf5&amp;type=3#Effects"/>
     <Style src="project://database/Assets/UI%20Toolkit/MainMenuStyle.uss?fileID=7433441132597879392&amp;guid=4419158e43c92232a84e8e079f07f996&amp;type=3#MainMenuStyle"/>
     <ui:VisualElement name="root">
-        <ui:VisualElement name="menu-box">
-            <ui:Label name="title-text" text="Menu do Jogo"/>
+        <ui:VisualElement name="menu-container">
+            <ui:Label name="game-title" text="Nome do Jogo"/>
+            <ui:Button name="story-btn" text="STORY" class="menu-item"/>
+            <ui:Button name="versus-btn" class="menu-item disabled">
+                <ui:Label text="VERSUS"/>
+                <ui:Label text="SOON" class="menu-subtext"/>
+            </ui:Button>
+            <ui:Button name="collection-btn" text="COLLECTION" class="menu-item"/>
+            <ui:Button name="settings-btn" text="SETTINGS" class="menu-item"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

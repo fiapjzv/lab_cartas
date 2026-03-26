@@ -2,17 +2,18 @@
     /* =========================
        FONT — FAMILY
        ========================= */
+    /* TODO: ADD CUSTOM FONT */
     --font-family-base: resource("Fonts/YourMainFont");
     --font-family-bold: resource("Fonts/YourMainFont-Bold");
 
     /* =========================
        FONT — SIZE
        ========================= */
-    --font-size-xs: 10px;
-    --font-size-sm: 12px;
-    --font-size-md: 14px;
-    --font-size-lg: 18px;
-    --font-size-xl: 24px;
+    --font-size-xs: 16px;
+    --font-size-sm: 24px;
+    --font-size-md: 32px;
+    --font-size-lg: 40px;
+    --font-size-xl: 60px;
 
     /* =========================
        FONT — WEIGHT (semantic)
