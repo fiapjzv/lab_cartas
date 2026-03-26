@@ -65,7 +65,7 @@ public partial class Scenes
 
         // NOTE: allowing unity to actually change the scene but giving some breath time to animations
         await 100.Millis().Delay();
-        loadingSceneOperation.allowSceneActivation = false;
+        loadingSceneOperation.allowSceneActivation = true;
     }
 
     private static string GetSceneName(Scene scene)
