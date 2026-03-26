@@ -31,5 +31,8 @@ namespace Game.UI
         {
             HideSpinner();
         }
+
+        /// <summary>Tempo mínimo na página de loading (para garantir animações).</summary>
+        private const float MIN_PROGRESS_DURATION_MS = 0.6f;
     }
 }
