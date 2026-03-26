@@ -1,4 +1,5 @@
 using System.Threading.Tasks;
+using Game.Core.Services;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -10,7 +11,7 @@ public partial class GameSetup : MonoBehaviour
     [SerializeField]
     private UIDocument _loadingScreen = null!;
 
-    private async Task Awake()
+    private void Awake()
     {
         DontDestroyOnLoad(gameObject);
 
@@ -18,9 +19,13 @@ public partial class GameSetup : MonoBehaviour
         ShowLoading(logger);
         SetupCamera(mainCamPrefab, logger);
 
-        await TestServerConn(logger);
+        _ = DoSetupAsync(scenes, logger);
+    }
 
-        // NOTE: this should load the menu
+    // NOTE: o ciclo de vida dos componentes unity são fire-and-forget deixando isso explícito aqui
+    private async Task DoSetupAsync(IScenes scenes, IGameLogger logger)
+    {
+        await TestServerConn(logger);
         await scenes.ChangeTo(Scene.MainMenu);
     }
 }
