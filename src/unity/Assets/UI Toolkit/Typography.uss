@@ -1,0 +1,38 @@
+:root {
+    /* =========================
+       FONT — FAMILY
+       ========================= */
+    --font-family-base: resource("Fonts/YourMainFont");
+    --font-family-bold: resource("Fonts/YourMainFont-Bold");
+
+    /* =========================
+       FONT — SIZE
+       ========================= */
+    --font-size-xs: 10px;
+    --font-size-sm: 12px;
+    --font-size-md: 14px;
+    --font-size-lg: 18px;
+    --font-size-xl: 24px;
+
+    /* =========================
+       FONT — WEIGHT (semantic)
+       ========================= */
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    /* =========================
+       LINE HEIGHT
+       ========================= */
+    --line-height-tight: 1.0;
+    --line-height-normal: 1.2;
+    --line-height-loose: 1.5;
+
+    /* =========================
+       ICONS
+       ========================= */
+    --icon-xs: 10px;
+    --icon-sm: 12px;
+    --icon-md: 14px;
+    --icon-lg: 18px;
+    --icon-xl: 24px;
+}

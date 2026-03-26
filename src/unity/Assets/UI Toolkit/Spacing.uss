@@ -1,0 +1,19 @@
+:root {
+    /* =========================
+       MARGIN
+       ========================= */
+    --margin-xs: 4px;
+    --margin-sm: 8px;
+    --margin-md: 12px;
+    --margin-lg: 16px;
+    --margin-xl: 24px;
+
+    /* =========================
+       PADDING
+       ========================= */
+    --padding-xs: 4px;
+    --padding-sm: 8px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 24px;
+}
