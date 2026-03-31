@@ -1,10 +1,9 @@
 using Game.Core.Services;
-using UnityEngine.InputSystem;
 
 public partial class GameManager
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
-    private (IScenes, IGameLogger) SetupServices()
+    private (IScenes, IEvents, IGameLogger) SetupServices()
     {
         var logLvl =
 #if DEBUG
@@ -18,6 +17,6 @@ public partial class GameManager
 
         Service.Setup(events, scenes, logger);
         logger.Info?.Log("Setup services complete");
-        return (scenes, logger);
+        return (scenes, events, logger);
     }
 }

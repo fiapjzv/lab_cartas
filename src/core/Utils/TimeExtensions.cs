@@ -6,6 +6,12 @@ public static class TimeExtensions
         return TimeSpan.FromMilliseconds(number);
     }
 
+    /// <summary>Converte um inteiro para segundos.</summary>
+    public static TimeSpan Seconds(this int number)
+    {
+        return TimeSpan.FromSeconds(number);
+    }
+
     /// <summary>Cria uma espera assíncrona baseado no tempo informado.</summary>
     /// <example>
     /// <code>

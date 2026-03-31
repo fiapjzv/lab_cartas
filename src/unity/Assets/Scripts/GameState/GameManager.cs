@@ -10,7 +10,8 @@ public partial class GameManager : MonoBehaviour
         var setupConfig = Resources.Load<GameSettings>(GAME_SETUP_CONFIG_PATH);
         ValidateConfig(setupConfig);
 
-        var (scenes, logger) = SetupServices();
+        var (scenes, events, logger) = SetupServices();
+        SubscribeQuitEvent(events, logger);
         ShowLoading(setupConfig.loadingScreenPrefab, logger);
         SetupCamera(setupConfig.mainCameraPrefab, logger);
 
