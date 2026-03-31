@@ -3,11 +3,11 @@ using System.Threading.Tasks;
 using Game.Core.Services;
 using UnityEngine;
 
-public partial class GameSetup : MonoBehaviour
+public partial class GameManager : MonoBehaviour
 {
     private void Awake()
     {
-        var setupConfig = Resources.Load<GameSetupConfig>(GAME_SETUP_CONFIG_PATH);
+        var setupConfig = Resources.Load<GameSettings>(GAME_SETUP_CONFIG_PATH);
         ValidateConfig(setupConfig);
 
         var (scenes, logger) = SetupServices();
@@ -17,11 +17,11 @@ public partial class GameSetup : MonoBehaviour
         _ = DoSetupAsync(scenes, logger);
     }
 
-    private void ValidateConfig(GameSetupConfig? setupConfig)
+    private void ValidateConfig(GameSettings? setupConfig)
     {
         var error =
-            setupConfig is null ? $"No {nameof(GameSetupConfig)} is available on Resources "
-            : setupConfig.MissingFields() ? $"{nameof(GameSetupConfig)} is missing fields"
+            setupConfig is null ? $"No {nameof(GameSettings)} is available on Resources "
+            : setupConfig.MissingFields() ? $"{nameof(GameSettings)} is missing fields"
             : null;
 
         if (error is not null)

@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public partial class GameSetup
+public partial class GameManager
 {
     /// <summary>Retorna o FPS alvo do jogo.</summary>
     /// <remarks>

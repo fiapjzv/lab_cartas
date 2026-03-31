@@ -1,7 +1,7 @@
 using Game.Core.Services;
 using UnityEngine.UIElements;
 
-public partial class GameSetup
+public partial class GameManager
 {
     /// <summary>Mostra a splash screen de loading.</summary>
     private void ShowLoading(UIDocument loadingScreen, IGameLogger logger)

@@ -18,7 +18,7 @@ namespace Game.UI
             _progressBar = Guard.ElementIsPresent(root, PROGRESS_FILL_UI_ELEM, _logger);
             _progressBar.style.display = DisplayStyle.None;
 
-            var frameBudgetMs = GameSetup.FrameBudgetInMs();
+            var frameBudgetMs = GameManager.FrameBudgetInMs();
             _progressBarTask = _progressBar
                 .schedule.Execute(ProgressBarAnimationFrame)
                 .Every(frameBudgetMs);

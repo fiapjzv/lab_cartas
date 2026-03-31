@@ -23,7 +23,7 @@ namespace Game.UI
                 return;
             }
 
-            var frameBudgetMs = GameSetup.FrameBudgetInMs();
+            var frameBudgetMs = GameManager.FrameBudgetInMs();
             _spinnerRotateTask = _spinner.schedule.Execute(RotateSpinner).Every(frameBudgetMs);
             _spinner.style.display = DisplayStyle.Flex;
         }

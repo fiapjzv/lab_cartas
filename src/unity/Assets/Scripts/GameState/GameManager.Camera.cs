@@ -1,7 +1,7 @@
 using Game.Core.Services;
 using UnityEngine;
 
-public partial class GameSetup
+public partial class GameManager
 {
     private void SetupCamera(Camera camPrefab, IGameLogger logger)
     {

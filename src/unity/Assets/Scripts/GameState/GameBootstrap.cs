@@ -7,8 +7,8 @@ public static class GameBootstrap
     {
         Debug.Log($"{nameof(GameBootstrap)} running");
 
-        var gameSetup = new GameObject(nameof(GameSetup));
+        var gameSetup = new GameObject(nameof(GameManager));
         Object.DontDestroyOnLoad(gameSetup);
-        gameSetup.AddComponent<GameSetup>();
+        gameSetup.AddComponent<GameManager>();
     }
 }

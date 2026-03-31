@@ -1,7 +1,7 @@
 using Game.Core.Services;
 using UnityEngine.InputSystem;
 
-public partial class GameSetup
+public partial class GameManager
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
     private (IScenes, IGameLogger) SetupServices()

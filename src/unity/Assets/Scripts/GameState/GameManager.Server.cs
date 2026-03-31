@@ -1,7 +1,7 @@
 using System.Threading.Tasks;
 using Game.Core.Services;
 
-public partial class GameSetup
+public partial class GameManager
 {
     /// <summary>Testa conexão com o servidor.</summary>
     private async Task TestServerConn(IGameLogger logger)
