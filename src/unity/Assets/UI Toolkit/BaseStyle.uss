@@ -1,0 +1,111 @@
+:root {
+    /* =========================
+       COLORS — BASE
+       ========================= */
+    --color-white: #ffffff;
+    --color-black: #000000;
+    --color-transparent: rgba(0,0,0,0);
+
+    --color-primary: #4f8cff;
+    --color-secondary: #a56eff;
+    --color-disabled: #6b6b6b;
+
+    --color-success: #4caf50;
+    --color-warning: #ffb300;
+    --color-danger: #e53935;
+    --color-info: #29b6f6;
+
+    /* =========================
+       COLORS — BACKGROUND
+       ========================= */
+    --color-bg-main: #121212;           /* cor base do fundo do jogo */
+    --color-bg-surface: #1e1e1e;        /* superfície elevada sobre a cor base */
+    --color-bg-emphasis: #2a2a2a;       /* fundo para um elemento de ênfase, "próximo" ao usuário */
+
+    /* =========================
+       COLORS — BORDER
+       ========================= */
+    --color-border-default: #2c2c2c;
+    --color-border-strong: #3a3a3a;
+
+    /* =========================
+       FONT — FAMILY
+       ========================= */
+    /* TODO: ADD CUSTOM FONT */
+    --font-family-base: resource("Fonts/YourMainFont");
+    --font-family-bold: resource("Fonts/YourMainFont-Bold");
+
+    /* =========================
+       FONT — SIZE
+       ========================= */
+    --font-size-xs: 16px;
+    --font-size-sm: 24px;
+    --font-size-md: 32px;
+    --font-size-lg: 40px;
+    --font-size-xl: 60px;
+
+    /* =========================
+       FONT — WEIGHT (semantic)
+       ========================= */
+    --font-weight-regular: 400;
+    --font-weight-bold: 700;
+
+    /* =========================
+       LINE HEIGHT
+       ========================= */
+    --line-height-tight: 1.0;
+    --line-height-normal: 1.2;
+    --line-height-loose: 1.5;
+
+    /* =========================
+       ICONS
+       ========================= */
+    --icon-xs: 10px;
+    --icon-sm: 12px;
+    --icon-md: 14px;
+    --icon-lg: 18px;
+    --icon-xl: 24px;
+
+    /* =========================
+       BORDER RADIUS
+       ========================= */
+    --radius-sm: 3%;
+    --radius-md: 5%;
+    --radius-lg: 10%;
+    --radius-round: 50%;
+
+    /* =========================
+       SHADOW / ELEVATION
+       ========================= */
+    --shadow-color: rgba(0, 0, 0, 0.5);
+    --shadow-small: 0 1px 2px 0 var(--shadow-color);
+    --shadow-medium: 0 2px 6px 0 var(--shadow-color);
+    --shadow-large: 0 4px 12px 0 var(--shadow-color);
+
+    /* =========================
+       OPACITY
+       ========================= */
+    --opacity-disabled: 0.4;
+    --opacity-hover: 0.8;
+    --opacity-active: 0.6;
+
+
+    /* =========================
+       MARGIN
+       ========================= */
+    --margin-xs: 4px;
+    --margin-sm: 8px;
+    --margin-md: 12px;
+    --margin-lg: 16px;
+    --margin-xl: 24px;
+
+    /* =========================
+       PADDING
+       ========================= */
+    --padding-xs: 4px;
+    --padding-sm: 8px;
+    --padding-md: 12px;
+    --padding-lg: 16px;
+    --padding-xl: 24px;
+}
+

@@ -1,11 +1,8 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <!-- estilos base -->
-    <Style src="project://database/Assets/UI%20Toolkit/Palette.uss?fileID=7433441132597879392&amp;guid=a30c7761931f5f2ceb74b61b698a19d8&amp;type=3#Palette"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Typography.uss?fileID=7433441132597879392&amp;guid=e5faa6dacaf91bfe0a693fc7dce27a3f&amp;type=3#Typography"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Spacing.uss?fileID=7433441132597879392&amp;guid=05e793513e4aeb7bfbd38325f949f737&amp;type=3#Spacing"/>
-    <Style src="project://database/Assets/UI%20Toolkit/Effects.uss?fileID=7433441132597879392&amp;guid=794a89f89e5ba87f784d5cbc225dfcf5&amp;type=3#Effects"/>
+    <Style src="project://database/Assets/UI%20Toolkit/BaseStyle.uss"/>
     <!-- estilo da tela -->
-    <Style src="project://database/Assets/UI%20Toolkit/LoadingScreenStyle.uss?fileID=7433441132597879392&amp;guid=69eebd3cca1b3feb9b0d0e23107ac2a1&amp;type=3#LoadingScreenStyle"/>
+    <Style src="project://database/Assets/UI%20Toolkit/LoadingScreenStyle.uss"/>
     <ui:VisualElement name="root">
         <ui:VisualElement name="title-box">
             <ui:Label name="title-text" text="Nome do Jogo!"/>
