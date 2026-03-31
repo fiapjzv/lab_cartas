@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UIElements;
 
-[CreateAssetMenu(menuName = "Game/GameSetupConfig")]
+[CreateAssetMenu(menuName = "Game/GameSettings")]
 public class GameSettings : ScriptableObject
 {
     public Camera mainCameraPrefab = null!;

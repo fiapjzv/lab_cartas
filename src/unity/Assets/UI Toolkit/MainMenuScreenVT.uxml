@@ -14,6 +14,7 @@
             </ui:Button>
             <ui:Button name="collection-btn" text="COLLECTION" class="menu-item"/>
             <ui:Button name="settings-btn" text="SETTINGS" class="menu-item"/>
+            <ui:Button name="quit-btn" text="QUIT" class="menu-item"/>
         </ui:VisualElement>
     </ui:VisualElement>
 </ui:UXML>

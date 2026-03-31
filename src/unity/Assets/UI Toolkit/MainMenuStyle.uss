@@ -48,3 +48,12 @@
     color: var(--color-secondary);
     margin-top: var(--margin-xs);
 }
+
+#quit-btn {
+    transition-property: background-color;
+    transition-duration: 0.15s;
+}
+
+#quit-btn:hover {
+    background-color: var(--color-danger);
+}

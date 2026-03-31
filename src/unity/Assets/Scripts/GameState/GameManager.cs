@@ -7,22 +7,22 @@ public partial class GameManager : MonoBehaviour
 {
     private void Awake()
     {
-        var setupConfig = Resources.Load<GameSettings>(GAME_SETUP_CONFIG_PATH);
-        ValidateConfig(setupConfig);
+        var gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
+        ValidateConfig(gameSettings);
 
         var (scenes, events, logger) = SetupServices();
         SubscribeQuitEvent(events, logger);
-        ShowLoading(setupConfig.loadingScreenPrefab, logger);
-        SetupCamera(setupConfig.mainCameraPrefab, logger);
+        ShowLoading(gameSettings.loadingScreenPrefab, logger);
+        SetupCamera(gameSettings.mainCameraPrefab, logger);
 
         _ = DoSetupAsync(scenes, logger);
     }
 
-    private void ValidateConfig(GameSettings? setupConfig)
+    private void ValidateConfig(GameSettings? gameSettings)
     {
         var error =
-            setupConfig is null ? $"No {nameof(GameSettings)} is available on Resources "
-            : setupConfig.MissingFields() ? $"{nameof(GameSettings)} is missing fields"
+            gameSettings is null ? $"No {nameof(GameSettings)} is available on Resources "
+            : gameSettings.MissingFields() ? $"{nameof(GameSettings)} is missing fields"
             : null;
 
         if (error is not null)
@@ -38,5 +38,5 @@ public partial class GameManager : MonoBehaviour
         await scenes.ChangeTo(Scene.MainMenu);
     }
 
-    private const string GAME_SETUP_CONFIG_PATH = "Config/GameSetupConfig";
+    private const string GAME_SETTINGS_CONFIG_PATH = "Config/GameSettings";
 }
