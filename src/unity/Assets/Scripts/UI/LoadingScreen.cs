@@ -4,6 +4,7 @@ using UnityEngine.UIElements;
 
 namespace Game.UI
 {
+    /// <summary>Comportamento da tela de loading.</summary>
     public partial class LoadingScreen : MonoBehaviour
     {
         private IGameLogger _logger = null!;
