@@ -5,13 +5,9 @@ using Game.Core.Services;
 /// <remarks>Propriedades são preenchidas em <see cref="GameSetup.Awake"/>.</remarks>
 public static class Service
 {
-    /// <inheritdoc cref="IEvents" />
     private static IEvents? _events;
-
-    /// <inheritdoc cref="IScenes" />
     private static IScenes? _scenes;
-
-    /// <inheritdoc cref="IGameLogger" />
+    private static I18N? _i18N;
     private static IGameLogger? _logger;
 
     /// <summary>Retorna um serviço to tipo <paramtype cref="T"/></summary>
@@ -22,10 +18,11 @@ public static class Service
         return (T)ResolveService<T>();
     }
 
-    internal static void Setup(IEvents events, IScenes scenes, IGameLogger logger)
+    internal static void Setup(IEvents events, IScenes scenes, I18N i18N, IGameLogger logger)
     {
         _events = events;
         _scenes = scenes;
+        _i18N = i18N;
         _logger = logger;
     }
 
@@ -34,6 +31,7 @@ public static class Service
         object? svc =
             typeof(T) == typeof(IEvents) ? _events
             : typeof(T) == typeof(IScenes) ? _scenes
+            : typeof(T) == typeof(I18N) ? _i18N
             : typeof(T) == typeof(IGameLogger) ? _logger
             : null;
 

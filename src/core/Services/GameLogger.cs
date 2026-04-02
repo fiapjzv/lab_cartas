@@ -103,7 +103,7 @@ public interface IExceptionMsgLogger : IMsgLogger
     void Log(string message, Exception ex);
 }
 
-public class NullLogger : IGameLogger
+public sealed class NullLogger : IGameLogger
 {
     public IMsgLogger? Debug => null;
 

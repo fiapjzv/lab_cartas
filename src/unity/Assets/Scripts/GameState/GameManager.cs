@@ -5,13 +5,14 @@ using UnityEngine;
 
 public partial class GameManager : MonoBehaviour
 {
-    private void Awake()
+    public void Awake()
     {
         var gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
         ValidateConfig(gameSettings);
 
-        var (scenes, events, logger) = SetupServices();
+        var (scenes, events, i18n, logger) = SetupServices();
         SubscribeQuitEvent(events, logger);
+        StartI18N(i18n, logger);
         ShowLoading(gameSettings.loadingScreenPrefab, logger);
         SetupCamera(gameSettings.mainCameraPrefab, logger);
 

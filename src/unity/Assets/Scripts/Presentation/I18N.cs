@@ -1,11 +1,18 @@
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Core.Services;
 
 /// <summary>Serviço de internacionalização de textos.</summary>
 public interface I18N
 {
-    /// <summary></summary>
-    I18NSection ForSection(string sectionKey);
+    /// <summary>Carrega síncronamente o que consegue de labels.</summary>
+    void Start();
+
+    /// <summary>
+    /// Contacta o servidor para buscar um grupo de chaves e traduções <see cref="I18NSection" />
+    /// </summary>
+    Task<I18NSection> ForSection(string sectionKey);
 
     /// <summary>
     /// Limpa cache local de traduções.<br/>
@@ -14,58 +21,25 @@ public interface I18N
     void ResetCache();
 }
 
-/// <inheritdoc/>
-public class I18NClient : I18N
+/// <summary>
+/// Contacta o servidor ou um cache local de arquivos para carregar traduções na língua do jogador.
+/// </summary>
+public partial class I18NImpl : I18N
 {
-    private IGameLogger _logger;
+    private readonly IGameLogger _logger;
+    private readonly Dictionary<string, I18NSection> _loadedSections = new();
 
-    public I18NClient(IGameLogger? logger = null)
+    public I18NImpl(IEvents events, IGameLogger? logger = null)
     {
         _logger = logger ?? NullLogger.Instance;
-    }
-
-    /// <inheritdoc/>
-    public I18NSection ForSection(string sectionKey)
-    {
-        return new I18NSectionFetcher(this, sectionKey, _logger);
     }
 
     /// <inheritdoc/>
     public void ResetCache()
     {
         // TODO: resetar cache local
-    }
-}
-
-/// <summary>Representa um agrupamento de chaves (ex: "menu").</summary>
-public interface I18NSection
-{
-    /// <summary>Identificador da seção. Exemplo: "menu", "enemy-cards", "global"</summary>
-    string Key { get; }
-
-    /// <summary>Tradução do texto na língua do jogador.</summary>
-    Task<string> Label(string i18nKey);
-}
-
-/// <inheritdoc/>
-public class I18NSectionFetcher : I18NSection
-{
-    private I18NClient _i18n;
-    private IGameLogger _logger;
-
-    /// <inheritdoc/>
-    public string Key { get; }
-
-    /// <inheritdoc cref="II18NSection" />
-    public I18NSectionFetcher(I18NClient i18n, string key, IGameLogger? logger = null)
-    {
-        Key = key;
-        _i18n = i18n;
-        _logger = logger ?? NullLogger.Instance;
-    }
-
-    public Task<string> Label(string i18nKey)
-    {
-        return Task.FromResult(i18nKey);
+        const string error = "Implement I18NClient.ResetCache()!";
+        _logger.Error?.Log(error);
+        throw new NotImplementedException(error);
     }
 }
