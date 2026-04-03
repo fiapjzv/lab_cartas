@@ -1,16 +1,17 @@
 using System;
 using System.Threading.Tasks;
+using Game.Core.Utils;
 
 public partial class I18NImpl
 {
     /// <inheritdoc/>
-    public async Task<I18NSection> ForSection(string sectionKey)
+    public async Task<Result<I18NSection>> ForSection(string sectionKey)
     {
         lock (_loadedSections)
         {
             if (_loadedSections.TryGetValue(sectionKey, out var section))
             {
-                return section;
+                return Result.Ok(section);
             }
         }
 
@@ -21,8 +22,7 @@ public partial class I18NImpl
         }
         catch (Exception ex)
         {
-            _logger.Error?.Log($"Failed to load I18N section '{sectionKey}': {ex}");
-            throw;
+            return $"Failed to load I18N section '{sectionKey}': {ex}".AsResult<I18NSection>();
         }
 
         lock (_loadedSections)
@@ -32,7 +32,8 @@ public partial class I18NImpl
                 _loadedSections[sectionKey] = pristineSection;
             }
 
-            return _loadedSections[sectionKey];
+            var section = _loadedSections[sectionKey];
+            return Result.Ok(section);
         }
     }
 
@@ -60,4 +61,6 @@ internal class MockI18NSection : I18NSection
             _ => $"[{i18nKey}]",
         };
     }
+
+    public override string ToString() => Key;
 }

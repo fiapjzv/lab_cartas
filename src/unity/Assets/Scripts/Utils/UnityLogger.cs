@@ -19,18 +19,18 @@ public class UnityLogger : IGameLogger
 
     private class MsgLogger : IMsgLogger
     {
-        private readonly Action<string> log;
-        private readonly string levelPrefix;
+        private readonly Action<string> _log;
+        private readonly string _levelPrefix;
 
         public MsgLogger(Action<string> log, LogLvl level)
         {
-            this.log = log;
-            this.levelPrefix = level.ToString();
+            _log = log;
+            _levelPrefix = level.ToString();
         }
 
         public void Log(string message)
         {
-            log($"[{levelPrefix}] {message}");
+            _log($"[{_levelPrefix}] {message}");
         }
     }
 
@@ -41,7 +41,7 @@ public class UnityLogger : IGameLogger
 
         public void Log(string message, Exception ex)
         {
-            base.Log(message);
+            Log(message);
             UnityDebug.LogException(ex);
         }
     }

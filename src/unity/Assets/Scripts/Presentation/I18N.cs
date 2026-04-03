@@ -2,17 +2,18 @@ using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Core.Services;
+using Game.Core.Utils;
 
 /// <summary>Serviço de internacionalização de textos.</summary>
 public interface I18N
 {
     /// <summary>Carrega síncronamente o que consegue de labels.</summary>
-    void Start();
+    void Start(string[] mandatorySections);
 
     /// <summary>
     /// Contacta o servidor para buscar um grupo de chaves e traduções <see cref="I18NSection" />
     /// </summary>
-    Task<I18NSection> ForSection(string sectionKey);
+    Task<Result<I18NSection>> ForSection(string sectionKey);
 
     /// <summary>
     /// Limpa cache local de traduções.<br/>
