@@ -9,31 +9,31 @@ namespace Game.UI
     {
         private IGameLogger _logger = null!;
         private IEvents _events = null!;
+        private VisualElement _root = null!;
+        private VisualElement _screen = null!;
 
-        private void Awake()
+        public void Awake()
         {
             _logger = Service.Get<IGameLogger>();
             _events = Service.Get<IEvents>();
 
             var uiDocument = Guard.NotNull(GetComponent<UIDocument>(), _logger);
-            var root = uiDocument.rootVisualElement;
+            _root = uiDocument.rootVisualElement;
 
-            EnsureSpinnerElement(root);
-            EnsureLoadingBar(root);
+            _screen = Guard.ElementIsPresent(_root, SCREEN_ROOT, _logger);
+            _progressBar = Guard.ElementIsPresent(_root, PROGRESS_FILL_UI_ELEM, _logger);
+            _spinner = Guard.ElementIsPresent(_root, SNIPPER_UI_ELEM, _logger);
+
+            _events.Subscribe<SceneLoadStartEvt>(ShowScreen);
+            _events.Subscribe<SceneLoadProgressEvt>(IncreaseProgressBar);
+            _events.Subscribe<SceneLoadCompleteEvt>(CompleteProgressBar);
+
+            _events.Subscribe<LoadingScreen100Percent>(HideScreen);
+            _events.Subscribe<LoadingScreen100Percent>(AllowUnitySceneLoading);
         }
 
-        private void OnEnable()
-        {
-            ShowSpinner();
-            ResetProgressBar();
-        }
-
-        private void OnDisable()
-        {
-            HideSpinner();
-        }
-
-        /// <summary>Tempo mínimo na página de loading (para garantir animações).</summary>
-        private const float MIN_PROGRESS_DURATION_MS = 0.6f;
+        private const string SCREEN_ROOT = "root";
     }
+
+    public readonly struct LoadingScreen100Percent { }
 }

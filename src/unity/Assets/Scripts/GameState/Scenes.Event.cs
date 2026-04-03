@@ -1,3 +1,5 @@
+using UnityEngine;
+
 // <summary>Cena começou a ser carregada.</summary>
 public readonly struct SceneLoadStartEvt
 {
@@ -29,14 +31,18 @@ public readonly struct SceneLoadProgressEvt
 }
 
 // <summary>Cena foi completamente carregada.</summary>
-public readonly struct SceneLoadCompleteEvt
+public class SceneLoadCompleteEvt
 {
     /// <inheritdoc cref="Scene" />
     public Scene Scene { get; }
 
+    // <summary>The Unity Scene that was loaded but is hidden.</summary>
+    public AsyncOperation SceneLoaded { get; }
+
     /// <inheritdoc cref="SceneLoadCompleteEvt" />
-    public SceneLoadCompleteEvt(Scene scene)
+    public SceneLoadCompleteEvt(Scene scene, AsyncOperation sceneLoaded)
     {
         Scene = scene;
+        SceneLoaded = sceneLoaded;
     }
 }

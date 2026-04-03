@@ -9,35 +9,24 @@ namespace Game.UI
         private IVisualElementScheduledItem? _spinnerRotateTask;
         private float _spinnerCurrAngle;
 
-        private void EnsureSpinnerElement(VisualElement root)
-        {
-            _spinner = Guard.ElementIsPresent(root, SNIPPER_UI_ELEM, _logger);
-            _spinner.style.display = DisplayStyle.None;
-        }
-
-        private void ShowSpinner()
+        private void StartSpinner()
         {
             if (_spinnerRotateTask is not null)
             {
-                _logger.Warn?.Log("Spinner already active");
+                _logger.Error?.Log("Spinner already active");
                 return;
             }
 
+            _logger.Debug?.Log("Starting spinner");
             var frameBudgetMs = GameManager.FrameBudgetInMs();
             _spinnerRotateTask = _spinner.schedule.Execute(RotateSpinner).Every(frameBudgetMs);
-            _spinner.style.display = DisplayStyle.Flex;
         }
 
-        private void HideSpinner()
+        private void StopSpinner()
         {
-            if (!gameObject.activeSelf || _spinnerRotateTask is null)
-            {
-                _logger.Warn?.Log("Spinner already innactive");
-            }
-
+            _logger.Debug?.Log("Stopping spinner");
             _spinnerRotateTask?.Pause();
             _spinnerRotateTask = null;
-            _spinner.style.display = DisplayStyle.None;
         }
 
         private void RotateSpinner()

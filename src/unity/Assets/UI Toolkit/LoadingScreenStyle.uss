@@ -5,6 +5,18 @@
     align-items: stretch;
 
     background-color: var(--color-bg-main);
+
+    /* NOTE: Començando com a tela preta e fade in em 100ms */
+    opacity: 0;
+    display: none;
+    transition-property: opacity;
+    transition-duration: 0.1s;
+    transition-timing-function: ease-in-out;
+}
+
+#root.show {
+    opacity: 1;
+    display: flex;
 }
 
 #title-box {
@@ -32,13 +44,11 @@
     flex-direction: row;
     justify-content: flex-end;
     align-items: center;
-    /* margin-bottom: var(--); */
 }
 
 #loading-text {
     color: var(--color-secondary);
     font-size: var(--font-size-md);
-    /* margin-right: 8px; */
 }
 
 #spinner {
@@ -58,6 +68,6 @@
 
 #progress-fill {
     height: 100%;
-    width: 40%;
+    width: 0%;
     background-color: var(--color-primary);
 }

@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Game.Core.Services;
 
@@ -7,6 +8,7 @@ public interface IScenes
     /// <summary>
     /// Agenda uma mudança de cena vai acontecer com a publicação do evento <see cref="SceneLoadCompleteEvt">.
     /// </summary>
+    /// <remarks>Antes de carregar a cena garante que as dependencias estejam carregadas.</remarks>
     Task ChangeTo(Scene scene);
 
     /// <summary>Verifica se essa cena é válida no unity</summary>
@@ -20,6 +22,7 @@ public partial class Scenes : IScenes
     private readonly IEvents _events;
 
     private Scene _currScene;
+    private Scene _nextScene;
 
     public Scenes(IEvents events, IGameLogger logger)
     {
@@ -34,4 +37,19 @@ public enum Scene
     MainMenu,
     Game,
     Story,
+}
+
+public static class SceneExtensions
+{
+    public static string Name(this Scene scene)
+    {
+        return scene switch
+        {
+            Scene.MainMenu => "MainMenuScene",
+            Scene.Game => "GameScene",
+            Scene.Story => "StoryScene",
+            Scene.Bootstrap => "BootstrapScene",
+            _ => throw new ArgumentOutOfRangeException(nameof(scene), scene, null),
+        };
+    }
 }
