@@ -19,4 +19,9 @@ public partial class GameManager
     {
         return 1000L / FramesPerSecond();
     }
+
+    // TODO: unify the UI palette (on the uss) with the game palette using a helper method like:
+    //       `root.style.SetProperty("--color-bg-main", Palette.BgMainColor);`
+    /// <summary>Qual cor mostrar quando nada está sendo exibido na tela.</summary>
+    public const string CLEAR_SCREEN_COLOR = "#121212";
 }
