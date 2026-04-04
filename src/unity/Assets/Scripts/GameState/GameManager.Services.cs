@@ -5,7 +5,7 @@ public partial class GameManager
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
     private (IScenes, IEvents, I18n, IGameLogger) SetupServices()
     {
-        var logLvl =
+        const LogLvl logLvl =
 #if DEBUG
         LogLvl.Debug;
 #else

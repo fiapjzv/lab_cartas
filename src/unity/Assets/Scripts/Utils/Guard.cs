@@ -25,9 +25,22 @@ public static class Guard
         }
 
         var error =
-            $"Expected {typeof(T).Name} not to be null. You might have forgotten to link the component in Unity.";
+            $"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.";
         logger.Error?.Log(error);
-        throw new InvalidOperationException(error);
+        Panic(error);
+        return obj!;
+    }
+
+    /// <summary>Garante que o texto não seja nulo ou vazio.</summary>
+    public static void NotEmpty(string param, IGameLogger logger)
+    {
+        if (string.IsNullOrEmpty(param))
+        {
+            var error =
+                "Expected param cannot to be empty. You might have forgotten to link a component in Unity.";
+            logger.Error?.Log(error);
+            Panic(error);
+        }
     }
 
     /// <summary>
@@ -50,7 +63,9 @@ public static class Guard
 
         var error = $"Could not find element '{elementName}' on '{root.name}'";
         logger.Error?.Log(error);
-        throw new InvalidOperationException(error);
+        Panic(error);
+
+        return null!;
     }
 
     /// <inheritdoc cref="ElementIsPresent{T}(VisualElement, string, IGameLogger)" />
@@ -61,5 +76,15 @@ public static class Guard
     )
     {
         return ElementIsPresent<VisualElement>(root, elementName, logger);
+    }
+
+    [System.Diagnostics.DebuggerHidden]
+    private static void Panic(string message)
+    {
+#if UNITY_EDITOR
+        UnityEngine.Debug.Break();
+#endif
+
+        Environment.FailFast(message);
     }
 }

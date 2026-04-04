@@ -13,6 +13,8 @@ public partial class I18nLabels : MonoBehaviour
     [field: SerializeField]
     public string I18nSection { get; set; } = null!;
 
+    private bool _alreadyTranslated;
+
     public void Awake()
     {
         _logger = Service.Get<IGameLogger>();
@@ -23,7 +25,19 @@ public partial class I18nLabels : MonoBehaviour
         _root = uiDocument.rootVisualElement;
     }
 
-    public async Task OnEnable()
+    public void OnEnable()
+    {
+        if (_alreadyTranslated)
+        {
+            return;
+        }
+
+        _ = AsyncLoad18nSection();
+
+        _alreadyTranslated = true;
+    }
+
+    private async Task AsyncLoad18nSection()
     {
         var i18nSection = await _i18n.ForSection(I18nSection);
         if (!i18nSection.IsOk(out var section, out var error))
@@ -34,9 +48,26 @@ public partial class I18nLabels : MonoBehaviour
             return;
         }
 
-        foreach (var label in _root.Query<Label>().ToList())
+        foreach (var label in _root.Query<TextElement>().ToList())
         {
-            label.text = section.Label(label.text);
+            var text = label.text;
+            // NOTE: text might be empty for nested elements (ex. a Button with a Label inside)
+            if (string.IsNullOrEmpty(text))
+            {
+                continue;
+            }
+
+            var result = section.Label(text);
+            if (result.IsOk(out var translated, out error))
+            {
+                _logger.Debug?.Log($"Got translation for {text}: {translated}");
+                label.text = translated;
+            }
+            else
+            {
+                label.text = $"[{text}]";
+                _logger.Error?.Log(error);
+            }
         }
     }
 }
