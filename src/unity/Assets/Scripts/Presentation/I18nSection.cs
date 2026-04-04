@@ -1,5 +1,5 @@
 /// <summary>Representa um agrupamento de chaves (ex: "menu").</summary>
-public interface I18NSection
+public interface I18nSection
 {
     /// <summary>Identificador da seção. Exemplo: "menu", "enemy-cards", "global"</summary>
     string Key { get; }

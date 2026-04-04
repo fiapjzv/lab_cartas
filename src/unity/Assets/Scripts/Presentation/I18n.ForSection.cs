@@ -2,10 +2,10 @@ using System;
 using System.Threading.Tasks;
 using Game.Core.Utils;
 
-public partial class I18NImpl
+public partial class I18nImpl
 {
     /// <inheritdoc/>
-    public async Task<Result<I18NSection>> ForSection(string sectionKey)
+    public async Task<Result<I18nSection>> ForSection(string sectionKey)
     {
         lock (_loadedSections)
         {
@@ -15,14 +15,14 @@ public partial class I18NImpl
             }
         }
 
-        I18NSection pristineSection;
+        I18nSection pristineSection;
         try
         {
             pristineSection = await TryLoadSection(sectionKey);
         }
         catch (Exception ex)
         {
-            return $"Failed to load I18N section '{sectionKey}': {ex}".AsResult<I18NSection>();
+            return $"Failed to load {nameof(I18n)} section '{sectionKey}': {ex}".AsResult<I18nSection>();
         }
 
         lock (_loadedSections)
@@ -37,14 +37,14 @@ public partial class I18NImpl
         }
     }
 
-    private async Task<I18NSection> TryLoadSection(string sectionKey)
+    private async Task<I18nSection> TryLoadSection(string sectionKey)
     {
         // TODO: load i18n from disk or server
-        return new MockI18NSection();
+        return new MockI18nSection();
     }
 }
 
-internal class MockI18NSection : I18NSection
+internal class MockI18nSection : I18nSection
 {
     public string Key => "mock";
 

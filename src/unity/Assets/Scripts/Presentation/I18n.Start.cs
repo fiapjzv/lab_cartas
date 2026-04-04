@@ -1,15 +1,15 @@
 using Game.Core.Services;
 
-public partial class I18NImpl
+public partial class I18nImpl
 {
-    /// <inheritdoc cref="I18N.Start" />
+    /// <inheritdoc cref="I18n.Start" />
     public void Start(string[] mandatorySections)
     {
         foreach (var section in mandatorySections)
         {
             var result = ForSection(section).GetAwaiter().GetResult();
             // TODO: what should we do in case of error: Panic?!
-            _logger.LogResult("Load I18N: {0}", result);
+            _logger.LogResult("Load I18n: {0}", result);
         }
     }
 }

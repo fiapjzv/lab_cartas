@@ -5,7 +5,7 @@ using UnityEngine.UIElements;
 public partial class I18nLabels : MonoBehaviour
 {
     private IGameLogger _logger = null!;
-    private I18N _i18n = null!;
+    private I18n _i18n = null!;
     private VisualElement _root = null!;
 
     public void Awake()
@@ -14,7 +14,7 @@ public partial class I18nLabels : MonoBehaviour
         _root = uiDocument.rootVisualElement;
 
         _logger = Service.Get<IGameLogger>();
-        _i18n = Service.Get<I18N>();
+        _i18n = Service.Get<I18n>();
     }
 
     // public async Task OnEnable()

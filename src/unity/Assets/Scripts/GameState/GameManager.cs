@@ -12,7 +12,7 @@ public partial class GameManager : MonoBehaviour
 
         var (scenes, events, i18n, logger) = SetupServices();
         SubscribeQuitEvent(events, logger);
-        StartI18N(i18n, logger);
+        StartI18n(i18n, logger);
         ShowLoading(gameSettings.loadingScreenPrefab, logger);
         SetupCamera(gameSettings.mainCameraPrefab, logger);
 

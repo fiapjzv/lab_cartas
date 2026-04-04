@@ -7,7 +7,7 @@ public static class Service
 {
     private static IEvents? _events;
     private static IScenes? _scenes;
-    private static I18N? _i18N;
+    private static I18n? _i18n;
     private static IGameLogger? _logger;
 
     /// <summary>Retorna um serviço to tipo <paramtype cref="T"/></summary>
@@ -18,11 +18,11 @@ public static class Service
         return (T)ResolveService<T>();
     }
 
-    internal static void Setup(IEvents events, IScenes scenes, I18N i18N, IGameLogger logger)
+    internal static void Setup(IEvents events, IScenes scenes, I18n i18n, IGameLogger logger)
     {
         _events = events;
         _scenes = scenes;
-        _i18N = i18N;
+        _i18n = i18n;
         _logger = logger;
     }
 
@@ -31,7 +31,7 @@ public static class Service
         object? svc =
             typeof(T) == typeof(IEvents) ? _events
             : typeof(T) == typeof(IScenes) ? _scenes
-            : typeof(T) == typeof(I18N) ? _i18N
+            : typeof(T) == typeof(I18n) ? _i18n
             : typeof(T) == typeof(IGameLogger) ? _logger
             : null;
 

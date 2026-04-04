@@ -5,15 +5,15 @@ using Game.Core.Services;
 using Game.Core.Utils;
 
 /// <summary>Serviço de internacionalização de textos.</summary>
-public interface I18N
+public interface I18n
 {
     /// <summary>Carrega síncronamente o que consegue de labels.</summary>
     void Start(string[] mandatorySections);
 
     /// <summary>
-    /// Contacta o servidor para buscar um grupo de chaves e traduções <see cref="I18NSection" />
+    /// Contacta o servidor para buscar um grupo de chaves e traduções <see cref="I18nSection" />
     /// </summary>
-    Task<Result<I18NSection>> ForSection(string sectionKey);
+    Task<Result<I18nSection>> ForSection(string sectionKey);
 
     /// <summary>
     /// Limpa cache local de traduções.<br/>
@@ -25,12 +25,12 @@ public interface I18N
 /// <summary>
 /// Contacta o servidor ou um cache local de arquivos para carregar traduções na língua do jogador.
 /// </summary>
-public partial class I18NImpl : I18N
+public partial class I18nImpl : I18n
 {
     private readonly IGameLogger _logger;
-    private readonly Dictionary<string, I18NSection> _loadedSections = new();
+    private readonly Dictionary<string, I18nSection> _loadedSections = new();
 
-    public I18NImpl(IEvents events, IGameLogger? logger = null)
+    public I18nImpl(IEvents events, IGameLogger? logger = null)
     {
         _logger = logger ?? NullLogger.Instance;
     }
@@ -39,7 +39,7 @@ public partial class I18NImpl : I18N
     public void ResetCache()
     {
         // TODO: resetar cache local
-        const string error = "Implement I18NClient.ResetCache()!";
+        var error = $"Implement {nameof(I18nImpl)}.{nameof(ResetCache)}!";
         _logger.Error?.Log(error);
         throw new NotImplementedException(error);
     }
