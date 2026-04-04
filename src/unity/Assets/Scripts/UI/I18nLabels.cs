@@ -1,3 +1,4 @@
+using System;
 using System.Threading.Tasks;
 using Game.Core.Services;
 using UnityEngine;
@@ -13,6 +14,8 @@ public partial class I18nLabels : MonoBehaviour
     [field: SerializeField]
     public string I18nSection { get; set; } = null!;
 
+    private bool _alreadyTranslated;
+
     public void Awake()
     {
         _logger = Service.Get<IGameLogger>();
@@ -23,7 +26,19 @@ public partial class I18nLabels : MonoBehaviour
         _root = uiDocument.rootVisualElement;
     }
 
-    public async Task OnEnable()
+    public void OnEnable()
+    {
+        if (_alreadyTranslated)
+        {
+            return;
+        }
+
+        _ = AsyncLoad18nSection();
+
+        _alreadyTranslated = true;
+    }
+
+    private async Task AsyncLoad18nSection()
     {
         var i18nSection = await _i18n.ForSection(I18nSection);
         if (!i18nSection.IsOk(out var section, out var error))
@@ -36,7 +51,15 @@ public partial class I18nLabels : MonoBehaviour
 
         foreach (var label in _root.Query<Label>().ToList())
         {
-            label.text = section.Label(label.text);
+            var result = section.Label(label.text);
+            if (result.IsOk(out var translated, out error))
+            {
+                label.text = translated;
+            }
+            else
+            {
+                _logger.Error?.Log(error);
+            }
         }
     }
 }

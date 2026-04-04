@@ -1,7 +1,9 @@
 using System;
 using System.Diagnostics;
+using System.Diagnostics.CodeAnalysis;
 using System.Threading.Tasks;
 using Game.Core.Utils;
+using UnityEngine;
 
 public partial class I18nImpl
 {
@@ -22,60 +24,41 @@ public partial class I18nImpl
             }
         }
 
-        I18nSection pristineSection;
-        try
+        var sw = Stopwatch.StartNew();
+        var result = await LoadPristineSection(sectionKey);
+        if (!result.IsOk(out var pristineSection, out var error))
         {
-            var sw = Stopwatch.StartNew();
-            pristineSection = await TryLoadSection(sectionKey);
-            _logger.Info?.Log(
-                $"Loaded pristine i18n section {sectionKey} in {sw.ElapsedMilliseconds:N2}ms"
-            );
-        }
-        catch (Exception ex)
-        {
-            var error = $"Failed to load {nameof(I18n)} section '{sectionKey}': {ex}";
             _logger.Error?.Log(error);
             return error.AsResult<I18nSection>();
         }
+        _logger.Info?.Log(
+            $"Loaded pristine i18n section {sectionKey} in {sw.ElapsedMilliseconds:N2}ms"
+        );
 
         lock (_loadedSections)
         {
-            if (!_loadedSections.ContainsKey(sectionKey))
-            {
-                _loadedSections[sectionKey] = pristineSection;
-            }
-
-            var section = _loadedSections[sectionKey];
-            return Result.Ok(section);
+            _loadedSections[sectionKey] = pristineSection;
         }
+        return Result.Ok(pristineSection);
     }
 
-    private async Task<I18nSection> TryLoadSection(string sectionKey)
+    private async Task<Result<I18nSection>> LoadPristineSection(string sectionKey)
     {
-        // TODO: load i18n from local disk
-        // TODO: load i18n from server
-        var i18nSection = new MockI18nSection();
-        return i18nSection;
-    }
-}
+        // TODO: get player locale (ex: "en_US", "pt_BR")
+        var locale = "pt_BR";
 
-internal class MockI18nSection : I18nSection
-{
-    public string Key => "mock";
-
-    public string Label(string i18nKey)
-    {
-        return i18nKey switch
+        var fromResource = LoadFromResource(locale, sectionKey);
+        if (fromResource.IsOk())
         {
-            "story-btn" => "STORY",
-            "versus-btn" => "VERSUS",
-            "versus-btn.subtext" => "SOON",
-            "collection-btn" => "COLLECTION",
-            "settings-btn" => "SETTINGS",
-            "quit-btn" => "QUIT",
-            _ => $"[{i18nKey}]",
-        };
-    }
+            return fromResource;
+        }
 
-    public override string ToString() => Key;
+        var fromServer = await LoadFromServer(locale, sectionKey);
+        if (fromServer.IsOk())
+        {
+            return fromServer;
+        }
+
+        return $"Could not find section {sectionKey}".AsResult<I18nSection>();
+    }
 }
