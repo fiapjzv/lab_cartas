@@ -86,6 +86,15 @@ public partial class Scenes
 
         var sceneLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
         sceneLoad.allowSceneActivation = false;
+
+        if (sceneName == currSceneName)
+        {
+            _logger.Warn?.Log(
+                $"Reloading the same scene {sceneName}. This is probably a debug scenario."
+            );
+            return sceneLoad;
+        }
+
         // NOTE: when the next scene is loaded we will unload the previous one
         sceneLoad.completed += _ => UnloadPreviousScene(currSceneName);
         return sceneLoad;
