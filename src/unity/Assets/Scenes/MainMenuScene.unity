@@ -130,6 +130,7 @@ GameObject:
   - component: {fileID: 1894841045}
   - component: {fileID: 1894841044}
   - component: {fileID: 1894841046}
+  - component: {fileID: 1894841047}
   m_Layer: 5
   m_Name: MainMenu
   m_TagString: Untagged
@@ -187,6 +188,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fba8fc3744833eb4ebf683605ee1c454, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.UI.MainMenuScreen
+--- !u!114 &1894841047
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1894841043}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7dffe98f7584c70a587e10a2d23431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::I18nLabels
+  <I18nSection>k__BackingField: menu
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
