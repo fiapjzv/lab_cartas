@@ -9,7 +9,7 @@
         </ui:VisualElement>
         <ui:VisualElement name="footer">
             <ui:VisualElement name="loading-row">
-                <ui:Label name="loading-text" text="LOADING..."/>
+                <ui:Label name="loading-text" text="LOADING"/>
                 <ui:VisualElement name="spinner"/>
             </ui:VisualElement>
             <ui:VisualElement name="progress-bar">

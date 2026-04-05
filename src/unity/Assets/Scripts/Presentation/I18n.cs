@@ -1,13 +1,14 @@
 using System.Collections.Generic;
 using System.Threading.Tasks;
 using Game.Core.Services;
+using Game.Core.UI;
 using Game.Core.Utils;
 
 /// <summary>Serviço de internacionalização de textos.</summary>
 public interface I18n
 {
     /// <summary>Língua atuala do jogo.</summary>
-    string Locale { get; }
+    Lang Lang { get; }
 
     /// <summary>Carrega síncronamente o que consegue de labels.</summary>
     void Start(string[] mandatorySections);
@@ -24,15 +25,15 @@ public interface I18n
 public partial class I18nImpl : I18n
 {
     /// <inheritdoc/>
-    public string Locale { get; private set; }
+    public Lang Lang { get; private set; }
 
     private readonly IGameLogger _logger;
     private readonly Dictionary<string, I18nSection> _loadedSections = new();
 
     public I18nImpl(IEvents events, IGameLogger? logger = null)
     {
-        // TODO: get player locale (ex: "en_US", "pt_BR")
-        Locale = "pt_BR";
+        // TODO: get player locale
+        Lang = Lang.PT_BR;
         _logger = logger ?? NullLogger.Instance;
     }
 

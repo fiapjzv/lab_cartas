@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6653320167279149794}
   - component: {fileID: 3715870337117947998}
   - component: {fileID: 2687447845657966346}
+  - component: {fileID: 6816015234033297277}
   m_Layer: 5
   m_Name: LoadingScreen
   m_TagString: Untagged
@@ -68,3 +69,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 95e43fb1bca46b5d79cc791108bf0121, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Game.UI.LoadingScreen
+--- !u!114 &6816015234033297277
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3345265256298848414}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bc7dffe98f7584c70a587e10a2d23431, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::I18nLabels
+  <I18nSection>k__BackingField: ui

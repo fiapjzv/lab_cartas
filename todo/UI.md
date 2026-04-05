@@ -7,3 +7,4 @@
 - [x] definição de paleta de cores isolada para USS
 - [x] adicionando animação na barra de loading para ficar mais "smooth"
 - [x] uxml do menu principal
+- [ ] verificador se labels e traduções em todas as línguas suportadas

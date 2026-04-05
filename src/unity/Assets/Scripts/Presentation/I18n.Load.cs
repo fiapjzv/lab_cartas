@@ -1,5 +1,6 @@
 using System.Diagnostics;
 using System.Threading.Tasks;
+using Game.Core.UI;
 using Game.Core.Utils;
 using UnityEngine;
 
@@ -7,7 +8,8 @@ public partial class I18nImpl
 {
     private Result<I18nSection> TryLoadFromResourceAndCache(string sectionKey)
     {
-        var resourcePath = $"I18n/{sectionKey}/{Locale}";
+        var locale = Lang.ToLocaleCode();
+        var resourcePath = $"I18n/{sectionKey}/{locale}";
         var sw = Stopwatch.StartNew();
         var textAsset = Resources.Load<TextAsset>(resourcePath);
 
@@ -16,7 +18,7 @@ public partial class I18nImpl
             return $"Could not find Resource locally on {resourcePath}".AsResult<I18nSection>();
         }
 
-        var result = ParseCsv(textAsset.text, sectionKey, Locale);
+        var result = ParseCsv(textAsset.text, sectionKey, locale);
         // NOTE: freeing up memory
         Resources.UnloadAsset(textAsset);
 
