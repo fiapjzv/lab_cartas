@@ -41,9 +41,8 @@ public interface IEvents
 }
 
 /// <inheritdoc cref="IEvents"/>
-public partial class Events : IEvents
+public abstract partial class Events : IEvents
 {
-    private SynchronizationContext _syncContext;
     private readonly IGameLogger _logger;
 
     // NOTE: sendo thread-safe lockando o dicionário de handlers apenas em Subscribe
@@ -51,9 +50,8 @@ public partial class Events : IEvents
     private Dictionary<Type, object> _syncHandlers = new();
     private Dictionary<Type, object> _asyncHandlers = new();
 
-    public Events(SynchronizationContext syncContext, IGameLogger? logger = null)
+    protected Events(IGameLogger? logger = null)
     {
-        _syncContext = syncContext;
         _logger = logger ?? NullLogger.Instance;
     }
 }

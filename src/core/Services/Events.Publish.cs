@@ -36,62 +36,59 @@ public partial class Events
         }
     }
 
-    private void ScheduleSyncHandlersRun<TEvt>(List<Action<TEvt>> handlers, TEvt evt) =>
-        _syncContext.Post(
-            _ =>
-            {
-                for (var i = 0; i < handlers.Count; i++)
-                {
-                    var handler = handlers[i];
-                    try
-                    {
-                        // NOTE: assume que vamos rodar em Release sem o LogLevel Debug
-                        if (_logger.Debug is null)
-                        {
-                            handler(evt);
-                        }
-                        else
-                        {
-                            ExecSyncHandlerLogging(handler, evt);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.Error?.Log($"Unexpected error running {handler} for {evt}", e);
-                    }
-                }
-            },
-            null
-        );
+    protected abstract void ScheduleAsyncHandlersRun<TEvt>(
+        List<Func<TEvt, Task>> handlers,
+        TEvt evt
+    );
 
-    private void ScheduleAsyncHandlersRun<TEvt>(List<Func<TEvt, Task>> handlers, TEvt evt)
+    protected abstract void ScheduleSyncHandlersRun<TEvt>(List<Action<TEvt>> handlers, TEvt evt);
+
+    protected void SyncHandlersRun<TEvt>(List<Action<TEvt>> handlers, TEvt evt)
     {
-        _syncContext.Post(
-            async _ =>
+        for (var i = 0; i < handlers.Count; i++)
+        {
+            var handler = handlers[i];
+            try
             {
-                for (var i = 0; i < handlers.Count; i++)
+                // NOTE: assume que vamos rodar em Release sem o LogLevel Debug
+                if (_logger.Debug is null)
                 {
-                    var handler = handlers[i];
-                    try
-                    {
-                        // NOTE: assume que vamos rodar em Release sem o LogLevel Debug
-                        if (_logger.Debug is null)
-                        {
-                            await handler(evt);
-                        }
-                        else
-                        {
-                            await ExecAsyncHandlerLogging(handler, evt);
-                        }
-                    }
-                    catch (Exception e)
-                    {
-                        _logger.Error?.Log($"Unexpected error running {handler} for {evt}", e);
-                    }
+                    handler(evt);
                 }
-            },
-            null
-        );
+                else
+                {
+                    ExecSyncHandlerLogging(handler, evt);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error?.Log($"Unexpected error running {handler} for {evt}", e);
+            }
+        }
+    }
+
+    protected async Task AsyncHandlersRun<TEvt>(List<Func<TEvt, Task>> handlers, TEvt evt)
+    {
+        for (var i = 0; i < handlers.Count; i++)
+        {
+            var handler = handlers[i];
+            try
+            {
+                // NOTE: assume que vamos rodar em Release sem o LogLevel Debug
+                if (_logger.Debug is null)
+                {
+                    await handler(evt);
+                }
+                else
+                {
+                    await ExecAsyncHandlerLogging(handler, evt);
+                }
+            }
+            catch (Exception e)
+            {
+                _logger.Error?.Log($"Unexpected error running {handler} for {evt}", e);
+            }
+        }
     }
 
     private void ExecSyncHandlerLogging<TEvt>(Action<TEvt> handler, TEvt evt)

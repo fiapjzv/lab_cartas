@@ -13,7 +13,7 @@ public partial class GameManager
         LogLvl.Info;
 #endif
         var logger = new UnityLogger(logLvl);
-        var events = new Events(SynchronizationContext.Current, logger);
+        var events = new UnityEvents(SynchronizationContext.Current, logger);
         var scenes = new Scenes(events, logger);
         var i18n = new I18nImpl(events, logger);
 
