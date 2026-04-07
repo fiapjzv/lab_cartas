@@ -2,12 +2,12 @@ using UnityEngine;
 
 public partial class Scenes
 {
-    /// <inheritdoc cref="IScenes.IsValid" />
-    public bool IsValid(string sceneName)
+    /// <summary>Verifica se essa cena é válida no unity</summary>
+    private bool IsValid(string sceneName)
     {
         if (sceneName == "BootstrapScene")
         {
-            _logger.Error?.Log($"Should not load BootstrapScene");
+            _logger.Error?.Log("Should not load BootstrapScene");
             return false;
         }
         var isValid = Application.CanStreamedLevelBeLoaded(sceneName);

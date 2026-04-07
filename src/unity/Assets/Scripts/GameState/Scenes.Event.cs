@@ -1,5 +1,18 @@
 using UnityEngine;
 
+// <summary>Engatilha uma mudança de cena.</summary>
+public readonly struct ChangeSceneEvt
+{
+    // <summary>Pra qual cena (<see crfe="Scene"/> )desejo mudar.</summary>
+    public Scene Scene { get; }
+
+    /// <inheritdoc cref="ChangeSceneEvt" />
+    public ChangeSceneEvt(Scene scene)
+    {
+        Scene = scene;
+    }
+}
+
 // <summary>Cena começou a ser carregada.</summary>
 public readonly struct SceneLoadStartEvt
 {

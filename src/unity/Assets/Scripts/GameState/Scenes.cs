@@ -3,20 +3,7 @@ using System.Threading.Tasks;
 using Game.Core.Services;
 
 /// <summary>Serviço de controle de cenas.</summary>
-public interface IScenes
-{
-    /// <summary>
-    /// Agenda uma mudança de cena vai acontecer com a publicação do evento <see cref="SceneLoadCompleteEvt">.
-    /// </summary>
-    /// <remarks>Antes de carregar a cena garante que as dependencias estejam carregadas.</remarks>
-    Task ChangeTo(Scene scene);
-
-    /// <summary>Verifica se essa cena é válida no unity</summary>
-    bool IsValid(string scene);
-}
-
-// <inheritdoc cref="IScenes" />
-public partial class Scenes : IScenes
+public partial class Scenes
 {
     private readonly IGameLogger _logger;
     private readonly IEvents _events;
@@ -28,6 +15,8 @@ public partial class Scenes : IScenes
     {
         _events = events;
         _logger = logger;
+
+        _events.Subscribe<ChangeSceneEvt>(ChangeTo);
     }
 }
 

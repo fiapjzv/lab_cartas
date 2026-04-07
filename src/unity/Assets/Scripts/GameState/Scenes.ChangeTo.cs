@@ -10,9 +10,13 @@ public partial class Scenes
     private bool _isLoading;
     private readonly object _lock = new();
 
-    // <inheritdoc cref="IScenes.Change" />
-    public async Task ChangeTo(Scene scene)
+    /// <summary>
+    /// Agenda uma mudança de cena vai acontecer com a publicação do evento <see cref="SceneLoadCompleteEvt">.
+    /// </summary>
+    /// <remarks>Antes de carregar a cena garante que as dependencias estejam carregadas.</remarks>
+    private async Task ChangeTo(ChangeSceneEvt changeSceneEvt)
     {
+        var scene = changeSceneEvt.Scene;
         if (_currScene == scene)
         {
             _logger.Warn?.Log($"Scene {scene} already loaded");
@@ -43,7 +47,7 @@ public partial class Scenes
 # if DEBUG
         // note: ensuring load progress sums 100% in DEBUG
         var totalWeight = dependencies.Sum(d => d.LoadWeight);
-        if (!UnityEngine.Mathf.Approximately(totalWeight, 1f))
+        if (!Mathf.Approximately(totalWeight, 1f))
         {
             var error =
                 $"Total scene dependency weight must be 1.0 (100%)! Current sum {totalWeight}";

@@ -1,9 +1,10 @@
+using System.Threading;
 using Game.Core.Services;
 
 public partial class GameManager
 {
     /// <summary>Instancia serviços básicos para o funcionamento de tudo.</summary>
-    private (IScenes, IEvents, I18n, IGameLogger) SetupServices()
+    private (IEvents, I18n, IGameLogger) SetupServices()
     {
         const LogLvl logLvl =
 #if DEBUG
@@ -12,12 +13,12 @@ public partial class GameManager
         LogLvl.Info;
 #endif
         var logger = new UnityLogger(logLvl);
-        var events = new Events(logger);
+        var events = new Events(SynchronizationContext.Current, logger);
         var scenes = new Scenes(events, logger);
         var i18n = new I18nImpl(events, logger);
 
-        Service.Setup(events, scenes, i18n, logger);
+        Service.Register(events, i18n, logger, privateSvcs: new[] { scenes });
         logger.Info?.Log("Setup services complete");
-        return (scenes, events, i18n, logger);
+        return (events, i18n, logger);
     }
 }

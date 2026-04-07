@@ -45,7 +45,7 @@ namespace Game.UI
         {
             if (_progressBarTask is null)
             {
-                _logger.Error?.Log("Cannot increaset target progress. Progress bar hidden.");
+                _logger.Error?.Log("Cannot increase target progress. Progress bar hidden.");
                 return;
             }
 

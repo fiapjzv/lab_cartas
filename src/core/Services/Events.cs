@@ -1,3 +1,5 @@
+using System.Threading;
+
 namespace Game.Core.Services;
 
 /// <summary>
@@ -33,19 +35,25 @@ public interface IEvents
     /// </summary>
     /// <inheritdoc cref="IEvents"/>
     IDisposable Subscribe<TEvt>(Action<TEvt> handler);
+
+    /// <inheritdoc cref="IEvents.Subscribe{TEvt}(Action{TEvt})"/>
+    IDisposable Subscribe<TEvt>(Func<TEvt, Task> handler);
 }
 
 /// <inheritdoc cref="IEvents"/>
 public partial class Events : IEvents
 {
+    private SynchronizationContext _syncContext;
     private readonly IGameLogger _logger;
 
     // NOTE: sendo thread-safe lockando o dicionário de handlers apenas em Subscribe
     private readonly object _subLock = new();
-    private Dictionary<Type, object> _handlers = new();
+    private Dictionary<Type, object> _syncHandlers = new();
+    private Dictionary<Type, object> _asyncHandlers = new();
 
-    public Events(IGameLogger? logger = null)
+    public Events(SynchronizationContext syncContext, IGameLogger? logger = null)
     {
+        _syncContext = syncContext;
         _logger = logger ?? NullLogger.Instance;
     }
 }
