@@ -9,16 +9,13 @@ public interface ISceneDependency
 
 public static partial class SceneDependency
 {
-    public static ISceneDependency[] Dependencies(
-        this Scene scene,
-        UnityEngine.AsyncOperation sceneLoad
-    )
+    public static ISceneDependency[] Dependencies(this Scene scene, UnityEngine.AsyncOperation sceneLoad)
     {
         return scene switch
         {
             Scene.Bootstrap => throw new NotImplementedException(),
             Scene.MainMenu => new[] { new Unity(sceneLoad, 1) },
-            Scene.Game => throw new NotImplementedException(),
+            Scene.InGame => new[] { new Unity(sceneLoad, 1) },
             Scene.Story => throw new NotImplementedException(),
             _ => throw new ArgumentOutOfRangeException(nameof(scene), scene, null),
         };

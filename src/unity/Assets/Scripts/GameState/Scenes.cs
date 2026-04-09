@@ -1,5 +1,4 @@
 using System;
-using System.Threading.Tasks;
 using Game.Core.Services;
 
 /// <summary>Serviço de controle de cenas.</summary>
@@ -24,7 +23,7 @@ public enum Scene
 {
     Bootstrap,
     MainMenu,
-    Game,
+    InGame,
     Story,
 }
 
@@ -35,7 +34,7 @@ public static class SceneExtensions
         return scene switch
         {
             Scene.MainMenu => "MainMenuScene",
-            Scene.Game => "GameScene",
+            Scene.InGame => "InGameScene",
             Scene.Story => "StoryScene",
             Scene.Bootstrap => "BootstrapScene",
             _ => throw new ArgumentOutOfRangeException(nameof(scene), scene, null),

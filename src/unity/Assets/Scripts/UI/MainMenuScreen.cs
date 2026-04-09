@@ -19,6 +19,7 @@ namespace Game.UI
             var root = uiDocument.rootVisualElement;
 
             BindQuitButton(root);
+            BindStoryModeButton(root);
         }
     }
 }
