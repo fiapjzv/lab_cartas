@@ -1,4 +1,3 @@
-using System;
 using System.Threading.Tasks;
 using Game.Core.Services;
 using UnityEngine;
@@ -7,10 +6,11 @@ public partial class GameManager : MonoBehaviour
 {
     public void Awake()
     {
-        var gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
-        ValidateConfig(gameSettings);
-
         var (events, i18n, logger) = SetupServices();
+
+        var gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
+        ValidateConfig(gameSettings, logger);
+
         SubscribeQuitEvent(events, logger);
         StartI18n(i18n, logger);
         ShowLoading(gameSettings.loadingScreenPrefab, logger);
@@ -19,17 +19,10 @@ public partial class GameManager : MonoBehaviour
         _ = DoSetupAsync(events, logger);
     }
 
-    private void ValidateConfig(GameSettings? gameSettings)
+    private static void ValidateConfig(GameSettings? gameSettings, IGameLogger logger)
     {
-        var error =
-            gameSettings is null ? $"No {nameof(GameSettings)} is available on Resources "
-            : gameSettings.MissingFields() ? $"{nameof(GameSettings)} is missing fields"
-            : null;
-
-        if (error is not null)
-        {
-            throw new ApplicationException(error);
-        }
+        Guard.NotNull(gameSettings?.loadingScreenPrefab, logger);
+        Guard.NotNull(gameSettings?.mainCameraPrefab, logger);
     }
 
     // NOTE: o ciclo de vida dos componentes unity são fire-and-forget deixando isso explícito aqui
