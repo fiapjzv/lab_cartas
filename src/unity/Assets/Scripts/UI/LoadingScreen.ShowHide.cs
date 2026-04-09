@@ -6,7 +6,7 @@ namespace Game.UI
     {
         private void ShowScreen(SceneLoadStartEvt _)
         {
-            _logger.Info?.Log("Displaying loading screen");
+            Logger.Info?.Log("Displaying loading screen");
 
             _screen.AddToClassList("show");
             StartSpinner();

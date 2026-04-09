@@ -14,7 +14,7 @@ namespace Game.UI
 
         private void StartProgressBar()
         {
-            _logger.Debug?.Log("Starting progress bar.");
+            Logger.Debug?.Log("Starting progress bar.");
             _targetProgressPercent = Length.Percent(0);
             _progressBarElapsedMs = 0;
             _progressBar.style.width = Length.Percent(0);
@@ -27,7 +27,7 @@ namespace Game.UI
 
         private void EndProgressBar()
         {
-            _logger.Debug?.Log("Stopping progress bar animation");
+            Logger.Debug?.Log("Stopping progress bar animation");
             _progressBarTask?.Pause();
             _progressBarTask = null;
         }
@@ -45,11 +45,11 @@ namespace Game.UI
         {
             if (_progressBarTask is null)
             {
-                _logger.Error?.Log("Cannot increase target progress. Progress bar hidden.");
+                Logger.Error?.Log("Cannot increase target progress. Progress bar hidden.");
                 return;
             }
 
-            _logger.Debug?.Log($"Increasing progress bar to {progressPercent}");
+            Logger.Debug?.Log($"Increasing progress bar to {progressPercent}");
             _targetProgressPercent = progressPercent;
 
             // _logger.Debug?.Log("Resuming progress bar animation!");
@@ -63,12 +63,12 @@ namespace Game.UI
 
             var currProgressPercent = Mathf.Lerp(0, _targetProgressPercent.value, t);
             _currProgressPercent = Length.Percent(currProgressPercent);
-            _logger.Debug?.Log($"Updating progress bar width {_currProgressPercent}");
+            Logger.Debug?.Log($"Updating progress bar width {_currProgressPercent}");
             _progressBar.style.width = _currProgressPercent;
 
             if (t >= 1f)
             {
-                _events.Publish(new LoadingScreen100Percent());
+                Events.Publish(new LoadingScreen100Percent());
             }
         }
 

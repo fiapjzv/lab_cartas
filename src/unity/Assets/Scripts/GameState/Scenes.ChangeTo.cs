@@ -93,7 +93,7 @@ public partial class Scenes
         var currScene = SceneManager.GetActiveScene();
         var currSceneName = currScene.name;
 
-        var sceneLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive);
+        var sceneLoad = SceneManager.LoadSceneAsync(sceneName, LoadSceneMode.Additive)!;
         sceneLoad.allowSceneActivation = false;
 
         if (sceneName == currSceneName)

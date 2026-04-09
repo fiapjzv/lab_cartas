@@ -1,35 +1,33 @@
-using Game.Core.Services;
-using UnityEngine;
+using System;
+using System.Collections.Generic;
 using UnityEngine.UIElements;
 
 namespace Game.UI
 {
     /// <summary>Comportamento da tela de loading.</summary>
-    public partial class LoadingScreen : MonoBehaviour
+    public partial class LoadingScreen : GameBehavior
     {
-        private IGameLogger _logger = null!;
-        private IEvents _events = null!;
         private VisualElement _root = null!;
         private VisualElement _screen = null!;
 
-        public void Awake()
+        protected override void Init()
         {
-            _logger = Service.Get<IGameLogger>();
-            _events = Service.Get<IEvents>();
-
-            var uiDocument = Guard.NotNull(GetComponent<UIDocument>(), _logger);
+            var uiDocument = Guard.NotNull(GetComponent<UIDocument>(), Logger);
             _root = uiDocument.rootVisualElement;
 
-            _screen = Guard.ElementIsPresent(_root, SCREEN_ROOT, _logger);
-            _progressBar = Guard.ElementIsPresent(_root, PROGRESS_FILL_UI_ELEM, _logger);
-            _spinner = Guard.ElementIsPresent(_root, SNIPPER_UI_ELEM, _logger);
+            _screen = Guard.ElementIsPresent(_root, SCREEN_ROOT, Logger);
+            _progressBar = Guard.ElementIsPresent(_root, PROGRESS_FILL_UI_ELEM, Logger);
+            _spinner = Guard.ElementIsPresent(_root, SNIPPER_UI_ELEM, Logger);
+        }
 
-            _events.Subscribe<SceneLoadStartEvt>(ShowScreen);
-            _events.Subscribe<SceneLoadProgressEvt>(IncreaseProgressBar);
-            _events.Subscribe<SceneLoadCompleteEvt>(CompleteProgressBar);
+        protected override IEnumerable<IDisposable> SubscribeEvents()
+        {
+            yield return Events.Subscribe<SceneLoadStartEvt>(ShowScreen);
+            yield return Events.Subscribe<SceneLoadProgressEvt>(IncreaseProgressBar);
+            yield return Events.Subscribe<SceneLoadCompleteEvt>(CompleteProgressBar);
 
-            _events.Subscribe<LoadingScreen100Percent>(HideScreen);
-            _events.Subscribe<LoadingScreen100Percent>(AllowUnitySceneLoading);
+            yield return Events.Subscribe<LoadingScreen100Percent>(HideScreen);
+            yield return Events.Subscribe<LoadingScreen100Percent>(AllowUnitySceneLoading);
         }
 
         private const string SCREEN_ROOT = "root";

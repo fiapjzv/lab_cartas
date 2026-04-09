@@ -9,7 +9,7 @@ namespace Game.UI
             var sceneLoadComplete = _sceneLoadComplete;
             if (sceneLoadComplete is null)
             {
-                _logger.Error?.Log(
+                Logger.Error?.Log(
                     $"No {nameof(SceneLoadCompleteEvt)} on {nameof(LoadingScreen)}!"
                 );
                 return;

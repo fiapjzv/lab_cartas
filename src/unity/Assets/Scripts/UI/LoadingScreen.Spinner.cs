@@ -13,18 +13,18 @@ namespace Game.UI
         {
             if (_spinnerRotateTask is not null)
             {
-                _logger.Error?.Log("Spinner already active");
+                Logger.Error?.Log("Spinner already active");
                 return;
             }
 
-            _logger.Debug?.Log("Starting spinner");
+            Logger.Debug?.Log("Starting spinner");
             var frameBudgetMs = GameManager.FrameBudgetInMs();
             _spinnerRotateTask = _spinner.schedule.Execute(RotateSpinner).Every(frameBudgetMs);
         }
 
         private void StopSpinner()
         {
-            _logger.Debug?.Log("Stopping spinner");
+            Logger.Debug?.Log("Stopping spinner");
             _spinnerRotateTask?.Pause();
             _spinnerRotateTask = null;
         }

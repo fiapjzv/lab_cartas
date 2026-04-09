@@ -32,19 +32,17 @@ public partial class I18nLabels : MonoBehaviour
             return;
         }
 
-        _ = AsyncLoad18nSection();
+        _ = AsyncLoadI18nSection();
 
         _alreadyTranslated = true;
     }
 
-    private async Task AsyncLoad18nSection()
+    private async Task AsyncLoadI18nSection()
     {
         var i18nSection = await _i18n.ForSection(I18nSection);
         if (!i18nSection.IsOk(out var section, out var error))
         {
-            _logger.Error?.Log(
-                $"Could not find i18n section {i18nSection} on screen {gameObject.name}: {error}"
-            );
+            _logger.Error?.Log($"Could not find i18n section {i18nSection} on screen {gameObject.name}: {error}");
             return;
         }
 

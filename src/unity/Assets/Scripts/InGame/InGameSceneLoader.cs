@@ -1,34 +1,29 @@
-using Game.Core.Services;
 using UnityEngine;
 
 /// <summary>Visualização e distribuição inicial de elementos de um novo jogo</summary>
-public class InGameSceneLoader : MonoBehaviour
+public class InGameSceneLoader : GameBehavior
 {
-    private IGameLogger _logger = null!;
-
     [field: SerializeField]
     private GameObject CardPrefab { get; set; } = null!;
 
     [field: SerializeField]
     private GameObject CardZonePrefab { get; set; } = null!;
 
-    public void Awake()
+    protected override void Init()
     {
-        _logger = Service.Get<IGameLogger>();
-
         RenderCardZones();
         RenderPlayerHand();
     }
 
     private void RenderCardZones()
     {
-        _logger.Debug?.Log($"Loading {ZONE_COUNT} card zones: ZoneSpacing = {ZONE_SPACING}; ZoneY = {ZONE_Y}");
+        Logger.Debug?.Log($"Loading {ZONE_COUNT} card zones: ZoneSpacing = {ZONE_SPACING}; ZoneY = {ZONE_Y}");
         DistributeGameObjects(CardZonePrefab, ZONE_COUNT, ZONE_SPACING, ZONE_Y);
     }
 
     private void RenderPlayerHand()
     {
-        _logger.Debug?.Log($"Loading {CARD_COUNT} cards: CardSpacing = {CARD_SPACING}; CardY = {CARD_Y}");
+        Logger.Debug?.Log($"Loading {CARD_COUNT} cards: CardSpacing = {CARD_SPACING}; CardY = {CARD_Y}");
         DistributeGameObjects(CardPrefab, CARD_COUNT, CARD_SPACING, CARD_Y);
     }
 
