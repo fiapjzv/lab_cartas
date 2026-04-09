@@ -29,6 +29,13 @@ public partial class Scenes
             return;
         }
 
+        var currenUnityScene = SceneManager.GetActiveScene().name;
+        if (currenUnityScene == sceneName)
+        {
+            _logger.Warn?.Log("Desired scene already loaded in Unity.");
+            return;
+        }
+
         lock (_lock)
         {
             if (_isLoading)
@@ -41,7 +48,6 @@ public partial class Scenes
         }
 
         // SAFETY: using local variable here to ensure valid reference
-        var currenUnityScene = SceneManager.GetActiveScene().name;
         var sceneLoad = EnsureUnitySceneLoad(sceneName);
         var dependencies = scene.Dependencies(sceneLoad);
 # if DEBUG
@@ -49,8 +55,7 @@ public partial class Scenes
         var totalWeight = dependencies.Sum(d => d.LoadWeight);
         if (!Mathf.Approximately(totalWeight, 1f))
         {
-            var error =
-                $"Total scene dependency weight must be 1.0 (100%)! Current sum {totalWeight}";
+            var error = $"Total scene dependency weight must be 1.0 (100%)! Current sum {totalWeight}";
             _logger.Error?.Log(error);
             throw new InvalidOperationException(error);
         }
@@ -93,9 +98,7 @@ public partial class Scenes
 
         if (sceneName == currSceneName)
         {
-            _logger.Warn?.Log(
-                $"Reloading the same scene {sceneName}. This is probably a debug scenario."
-            );
+            _logger.Warn?.Log($"Reloading the same scene {sceneName}. This is probably a debug scenario.");
             return sceneLoad;
         }
 

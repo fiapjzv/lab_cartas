@@ -40,4 +40,16 @@ public static class SceneExtensions
             _ => throw new ArgumentOutOfRangeException(nameof(scene), scene, null),
         };
     }
+
+    public static Scene AsScene(this string sceneName)
+    {
+        return sceneName switch
+        {
+            "MainMenuScene" => Scene.MainMenu,
+            "InGameScene" => Scene.InGame,
+            "StoryScene" => Scene.Story,
+            "BootstrapScene" => Scene.Bootstrap,
+            _ => throw new ArgumentOutOfRangeException(nameof(sceneName), sceneName, null),
+        };
+    }
 }

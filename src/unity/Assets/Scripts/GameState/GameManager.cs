@@ -1,6 +1,7 @@
 using System.Threading.Tasks;
 using Game.Core.Services;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
@@ -29,7 +30,21 @@ public partial class GameManager : MonoBehaviour
     private async Task DoSetupAsync(IEvents events, IGameLogger logger)
     {
         await TestServerConn(logger);
-        events.Publish(new ChangeSceneEvt(Scene.MainMenu));
+
+        var currScene = SceneManager.GetActiveScene().name.AsScene();
+        if (currScene == Scene.Bootstrap)
+        {
+            events.Publish(new ChangeSceneEvt(Scene.MainMenu));
+        }
+        else
+        {
+#if DEBUG
+            logger.Warn?.Log($"Starting execution on scene {currScene}.");
+            events.Publish(new ChangeSceneEvt(currScene));
+#else
+            Guard.Panic($"Cannot start game on scene {currScene}");
+#endif
+        }
     }
 
     private const string GAME_SETTINGS_CONFIG_PATH = "Config/GameSettings";

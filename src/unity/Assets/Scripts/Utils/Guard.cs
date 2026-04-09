@@ -69,7 +69,7 @@ public static class Guard
     }
 
     [System.Diagnostics.DebuggerHidden]
-    private static void Panic(string message)
+    public static void Panic(string message)
     {
 #if UNITY_EDITOR
         UnityEngine.Debug.Break();
