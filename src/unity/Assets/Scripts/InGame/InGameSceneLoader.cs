@@ -1,6 +1,7 @@
 using Game.Core.Services;
 using UnityEngine;
 
+/// <summary>Visualização e distribuição inicial de elementos de um novo jogo</summary>
 public class InGameSceneLoader : MonoBehaviour
 {
     private IGameLogger _logger = null!;
@@ -21,11 +22,13 @@ public class InGameSceneLoader : MonoBehaviour
 
     private void RenderCardZones()
     {
+        _logger.Debug?.Log($"Loading {ZONE_COUNT} card zones: ZoneSpacing = {ZONE_SPACING}; ZoneY = {ZONE_Y}");
         DistributeGameObjects(CardZonePrefab, ZONE_COUNT, ZONE_SPACING, ZONE_Y);
     }
 
     private void RenderPlayerHand()
     {
+        _logger.Debug?.Log($"Loading {CARD_COUNT} cards: CardSpacing = {CARD_SPACING}; CardY = {CARD_Y}");
         DistributeGameObjects(CardPrefab, CARD_COUNT, CARD_SPACING, CARD_Y);
     }
 
@@ -43,11 +46,11 @@ public class InGameSceneLoader : MonoBehaviour
         }
     }
 
-    const int ZONE_COUNT = 8;
-    const float ZONE_Y = -2.0f;
-    const float ZONE_SPACING = 0.3f;
+    private const int ZONE_COUNT = 8;
+    private const float ZONE_Y = -4.0f;
+    private const float ZONE_SPACING = 0.3f;
 
-    const int CARD_COUNT = 5;
-    const float CARD_Y = -5.0f;
-    const float CARD_SPACING = 0.12f;
+    private const int CARD_COUNT = 5;
+    private const float CARD_Y = -7.0f;
+    private const float CARD_SPACING = 0.12f;
 }
