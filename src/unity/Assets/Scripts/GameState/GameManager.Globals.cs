@@ -24,4 +24,10 @@ public partial class GameManager
     //       `root.style.SetProperty("--color-bg-main", Palette.BgMainColor);`
     /// <summary>Qual cor mostrar quando nada está sendo exibido na tela.</summary>
     public const string CLEAR_SCREEN_COLOR = "#121212";
+
+    public static class DepthLayers
+    {
+        public const float CAMERA_GLOBAL_Z = -10f;
+        public const float TABLE_ZONE_Z = 0f;
+    }
 }

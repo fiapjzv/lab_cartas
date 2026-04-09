@@ -24,8 +24,7 @@ public static class Guard
             return obj;
         }
 
-        var error =
-            $"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.";
+        var error = $"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.";
         logger.Error?.Log(error);
         Panic(error);
         return obj!;
@@ -36,8 +35,7 @@ public static class Guard
     {
         if (string.IsNullOrEmpty(param))
         {
-            var error =
-                "Expected param cannot to be empty. You might have forgotten to link a component in Unity.";
+            var error = "Expected param cannot to be empty. You might have forgotten to link a component in Unity.";
             logger.Error?.Log(error);
             Panic(error);
         }
@@ -47,11 +45,7 @@ public static class Guard
     /// Garante que um elemento existe dentro da hierarquia de UI Toolkit.
     /// Realiza a busca pelo nome e valida se o elemento foi encontrado.
     /// </summary>
-    public static VisualElement ElementIsPresent<T>(
-        VisualElement root,
-        string elementName,
-        IGameLogger logger
-    )
+    public static VisualElement ElementIsPresent<T>(VisualElement root, string elementName, IGameLogger logger)
         where T : VisualElement
     {
         var element = root.Q<T>(elementName);
@@ -69,11 +63,7 @@ public static class Guard
     }
 
     /// <inheritdoc cref="ElementIsPresent{T}(VisualElement, string, IGameLogger)" />
-    public static VisualElement ElementIsPresent(
-        VisualElement root,
-        string elementName,
-        IGameLogger logger
-    )
+    public static VisualElement ElementIsPresent(VisualElement root, string elementName, IGameLogger logger)
     {
         return ElementIsPresent<VisualElement>(root, elementName, logger);
     }
