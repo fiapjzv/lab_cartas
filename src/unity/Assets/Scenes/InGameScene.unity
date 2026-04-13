@@ -129,6 +129,7 @@ GameObject:
   m_Component:
   - component: {fileID: 234854601}
   - component: {fileID: 234854602}
+  - component: {fileID: 234854603}
   m_Layer: 0
   m_Name: InGameSceneLoader
   m_TagString: Untagged
@@ -165,6 +166,18 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::InGameSceneLoader
   <CardPrefab>k__BackingField: {fileID: 8783566273023176763, guid: 71159e86fa50485e5a0cb9c15757606c, type: 3}
   <CardZonePrefab>k__BackingField: {fileID: 6759360494302460778, guid: 4c4efdd1200d81642ae032ac5ad24e72, type: 3}
+--- !u!114 &234854603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 234854600}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 936781dec67b97921891a28aaab63693, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::PointerHandler
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

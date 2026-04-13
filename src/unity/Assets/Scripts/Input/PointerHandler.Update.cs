@@ -3,72 +3,72 @@ using UnityEngine.InputSystem;
 
 public partial class PointerHandler
 {
-    void Update()
+    public void Update()
     {
-        var pointer = Pointer.current;
-        if (pointer == null)
+        if (_pointer.press.wasPressedThisFrame)
         {
-            _logger.Error?.Log("No pointer found!");
+            HandleObjClick(_pointer);
             return;
         }
 
-        if (pointer.press.wasPressedThisFrame)
+        if (_pointer.press.isPressed)
         {
-            HandleObjClick(pointer);
-            return;
+            HandleObjDrag(_pointer);
         }
 
-        if (pointer.press.isPressed)
+        if (_pointer.press.wasReleasedThisFrame)
         {
-            HandleObjDrag(pointer);
-        }
-
-        if (pointer.press.wasReleasedThisFrame)
-        {
-            HandleObjRelease(pointer);
+            HandleObjRelease(_pointer);
         }
     }
 
     private void HandleObjClick(Pointer pointer)
     {
-        var pointerPos = _cam.ScreenToWorldPoint(pointer.position.ReadValue());
+        var pointerPos = GetWorldPosition(pointer.position.ReadValue());
         var hit = Physics2D.OverlapPoint(pointerPos);
 
         if (hit is null)
         {
-            _logger.Debug?.Log($"Player clicked on nothing");
+            Logger.Debug?.Log("Player clicked on nothing");
             return;
         }
 
-        _logger.Debug?.Log($"Player cliked on {hit.gameObject}");
         if (!hit.HasComponent<IClickable>())
         {
-            _logger.Debug?.Log($"Clicked object is not {nameof(IClickable)}");
+            Logger.Debug?.Log($"Clicked object is not {nameof(IClickable)}");
             return;
         }
 
-        _currClicked = hit.gameObject;
-        _events.Publish(new PointerClickEvt(hit, pointerPos));
+        Logger.Debug?.Log($"Player clicked on {hit.gameObject}");
+        _currSelected = hit.gameObject;
+        Events.Publish(new PointerClickEvt(hit, pointerPos));
     }
 
     private void HandleObjDrag(Pointer pointer)
     {
-        if (_currClicked is null)
+        if (_currSelected is null)
         {
             return;
         }
 
-        var pointerPos = _cam.ScreenToWorldPoint(pointer.position.ReadValue());
-        if (_currClicked.HasComponent<IDraggable>())
+        var pointerPos = GetWorldPosition(pointer.position.ReadValue());
+        if (_currSelected.HasComponent<IDraggable>())
         {
-            _events.Publish(new PointerDragEvt(_currClicked, pointerPos));
+            Events.Publish(new PointerDragEvt(_currSelected, pointerPos));
         }
     }
 
     private void HandleObjRelease(Pointer pointer)
     {
-        var pointerPos = _cam.ScreenToWorldPoint(pointer.position.ReadValue());
-        _events.Publish(new PointerReleaseEvt(pointerPos));
-        _currClicked = null;
+        var pointerPos = GetWorldPosition(pointer.position.ReadValue());
+        Events.Publish(new PointerReleaseEvt(pointerPos));
+        _currSelected = null;
+    }
+
+    private Vector3 GetWorldPosition(Vector2 pointerPos)
+    {
+        // NOTE: Garante que o cálculo de mundo considere a distância da camera para um plano oposto à camera
+        var posWithDepth = new Vector3(pointerPos.x, pointerPos.y, -GameManager.DepthLayers.CAMERA_GLOBAL_Z);
+        return _cam.ScreenToWorldPoint(posWithDepth);
     }
 }

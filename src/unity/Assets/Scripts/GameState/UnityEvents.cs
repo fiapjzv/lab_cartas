@@ -20,8 +20,6 @@ public class UnityEvents : Events
     protected override void ScheduleSyncHandlersRun<TEvt>(List<Action<TEvt>> handlers, TEvt evt) =>
         _syncContext.Post(_ => SyncHandlersRun(handlers, evt), null);
 
-    protected override void ScheduleAsyncHandlersRun<TEvt>(
-        List<Func<TEvt, Task>> handlers,
-        TEvt evt
-    ) => _syncContext.Post(_ => _ = AsyncHandlersRun(handlers, evt), null);
+    protected override void ScheduleAsyncHandlersRun<TEvt>(List<Func<TEvt, Task>> handlers, TEvt evt) =>
+        _syncContext.Post(_ => _ = AsyncHandlersRun(handlers, evt), null);
 }
