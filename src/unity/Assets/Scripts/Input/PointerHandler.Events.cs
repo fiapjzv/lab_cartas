@@ -42,9 +42,13 @@ public readonly struct PointerReleaseEvt
     /// <summary>Posição do ponteiro no momento da liberação (em coordenadas de mundo).</summary>
     public Vector3 PointerPos { get; }
 
+    /// <summary>Indica se algum objeto estava sendo arrastado ou foi um clique simples</summary>
+    public bool WasDragged { get; }
+
     /// <inheritdoc cref="PointerReleaseEvt" />
-    public PointerReleaseEvt(Vector3 pointerPos)
+    public PointerReleaseEvt(Vector3 pointerPos, bool wasDragged)
     {
         PointerPos = pointerPos;
+        WasDragged = wasDragged;
     }
 }

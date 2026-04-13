@@ -62,6 +62,7 @@ public partial class PointerHandler
 
         if (!_isDragging && ShouldStartDragging(pointerPos))
         {
+            Logger.Debug?.Log($"Començado a arrastar o objeto: {_currSelected.name}");
             _isDragging = true;
         }
 
@@ -91,7 +92,7 @@ public partial class PointerHandler
         }
 
         var pointerPos = GetWorldPosition(pointer.position.ReadValue());
-        Events.Publish(new PointerReleaseEvt(pointerPos));
+        Events.Publish(new PointerReleaseEvt(pointerPos, _isDragging));
         _currSelected = null;
         _currClickPos = null;
         _isDragging = false;
