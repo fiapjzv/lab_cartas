@@ -62,7 +62,7 @@ public partial class PointerHandler
 
         if (!_isDragging && ShouldStartDragging(pointerPos))
         {
-            Logger.Debug?.Log($"Començado a arrastar o objeto: {_currSelected.name}");
+            Logger.Debug?.Log($"Starting to drag object {_currSelected.name}");
             _isDragging = true;
         }
 
@@ -80,19 +80,19 @@ public partial class PointerHandler
         }
 
         var distance = Vector2.Distance(pointerPos, _currClickPos.Value);
-        Logger.Debug?.Log($"Dragging should start if distance: {distance}  > {DRAG_DISTANCE_THRESHOLD}");
+        Logger.Debug?.Log($"Checking if drag should start. If distance: {distance}  > {DRAG_DISTANCE_THRESHOLD}");
         return distance > DRAG_DISTANCE_THRESHOLD;
     }
 
     private void HandleObjRelease(Pointer pointer)
     {
-        if (_currClickPos is null)
+        if (_currClickPos is null || _currSelected is null)
         {
             return;
         }
 
         var pointerPos = GetWorldPosition(pointer.position.ReadValue());
-        Events.Publish(new PointerReleaseEvt(pointerPos, _isDragging));
+        Events.Publish(new PointerReleaseEvt(_currSelected, pointerPos, _isDragging));
         _currSelected = null;
         _currClickPos = null;
         _isDragging = false;

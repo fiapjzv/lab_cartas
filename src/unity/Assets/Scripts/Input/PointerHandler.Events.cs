@@ -39,6 +39,9 @@ public readonly struct PointerDragEvt
 /// <summary>Evento disparado quando o ponteiro é liberado (fim do clique ou drag).</summary>
 public readonly struct PointerReleaseEvt
 {
+    /// <summary>GameObject que foi clicado.</summary>
+    public GameObject Target { get; }
+
     /// <summary>Posição do ponteiro no momento da liberação (em coordenadas de mundo).</summary>
     public Vector3 PointerPos { get; }
 
@@ -46,8 +49,9 @@ public readonly struct PointerReleaseEvt
     public bool WasDragged { get; }
 
     /// <inheritdoc cref="PointerReleaseEvt" />
-    public PointerReleaseEvt(Vector3 pointerPos, bool wasDragged)
+    public PointerReleaseEvt(GameObject target, Vector3 pointerPos, bool wasDragged)
     {
+        Target = target;
         PointerPos = pointerPos;
         WasDragged = wasDragged;
     }
