@@ -8,6 +8,8 @@ public partial class PointerHandler : GameBehavior
     private Pointer _pointer = null!;
 
     private GameObject? _currSelected;
+    private Vector3? _currClickPos;
+    private bool _isDragging;
 
     protected override void Init()
     {

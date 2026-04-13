@@ -11,14 +11,15 @@ public partial class PointerHandler
             return;
         }
 
-        if (_pointer.press.isPressed)
-        {
-            HandleObjDrag(_pointer);
-        }
-
         if (_pointer.press.wasReleasedThisFrame)
         {
             HandleObjRelease(_pointer);
+            return;
+        }
+
+        if (_pointer.press.isPressed)
+        {
+            HandleObjDrag(_pointer);
         }
     }
 
@@ -33,7 +34,7 @@ public partial class PointerHandler
             return;
         }
 
-        if (!hit.HasComponent<IClickable>())
+        if (!hit.TryGetComponent<IClickable>(out _))
         {
             Logger.Debug?.Log($"Clicked object is not {nameof(IClickable)}");
             return;
@@ -41,6 +42,7 @@ public partial class PointerHandler
 
         Logger.Debug?.Log($"Player clicked on {hit.gameObject}");
         _currSelected = hit.gameObject;
+        _currClickPos = pointerPos;
         Events.Publish(new PointerClickEvt(hit, pointerPos));
     }
 
@@ -51,18 +53,48 @@ public partial class PointerHandler
             return;
         }
 
+        if (!_currSelected.TryGetComponent<IDraggable>(out _))
+        {
+            return;
+        }
+
         var pointerPos = GetWorldPosition(pointer.position.ReadValue());
-        if (_currSelected.HasComponent<IDraggable>())
+
+        if (!_isDragging && ShouldStartDragging(pointerPos))
+        {
+            _isDragging = true;
+        }
+
+        if (_isDragging)
         {
             Events.Publish(new PointerDragEvt(_currSelected, pointerPos));
         }
     }
 
+    private bool ShouldStartDragging(Vector3 pointerPos)
+    {
+        if (_currClickPos is null)
+        {
+            return false;
+        }
+
+        var distance = Vector2.Distance(pointerPos, _currClickPos.Value);
+        Logger.Debug?.Log($"Dragging should start if distance: {distance}  > {DRAG_DISTANCE_THRESHOLD}");
+        return distance > DRAG_DISTANCE_THRESHOLD;
+    }
+
     private void HandleObjRelease(Pointer pointer)
     {
+        if (_currClickPos is null)
+        {
+            return;
+        }
+
         var pointerPos = GetWorldPosition(pointer.position.ReadValue());
         Events.Publish(new PointerReleaseEvt(pointerPos));
         _currSelected = null;
+        _currClickPos = null;
+        _isDragging = false;
     }
 
     private Vector3 GetWorldPosition(Vector2 pointerPos)
@@ -71,4 +103,7 @@ public partial class PointerHandler
         var posWithDepth = new Vector3(pointerPos.x, pointerPos.y, -GameManager.DepthLayers.CAMERA_GLOBAL_Z);
         return _cam.ScreenToWorldPoint(posWithDepth);
     }
+
+    /// <summary>min distance in world units the mouse should move so the event can be considered a drag</summary>
+    private const float DRAG_DISTANCE_THRESHOLD = 0.3f;
 }
