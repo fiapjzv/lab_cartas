@@ -28,3 +28,12 @@ public class CardData
     /// <summary>A chave do sprite a ser exibido no fundo da carta.</summary>
     public string BgSpriteKey { get; set; } = null!;
 }
+
+public partial class CardView
+{
+    /// <summary>Altera a informação necessária para exibir os dados de uma carta.</summary>
+    public void SetCardData(CardData cardData)
+    {
+        _cardData = cardData;
+    }
+}
