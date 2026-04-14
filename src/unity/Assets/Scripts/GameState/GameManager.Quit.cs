@@ -21,8 +21,7 @@ public partial class GameManager
                     logger.Info?.Log("Quiting now!");
 #if UNITY_EDITOR
                     // NOTE: telling the Unity editor to stop the player if running on editor
-                    UnityEditor.EditorApplication.delayCall += () =>
-                        UnityEditor.EditorApplication.ExitPlaymode();
+                    UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
 #endif
                     Application.Quit(exitCode: 0);
                 }

@@ -71,10 +71,13 @@ public static class Guard
     [System.Diagnostics.DebuggerHidden]
     public static void Panic(string message)
     {
+        UnityEngine.Debug.LogError($"FATAL PANIC: {message}");
+
 #if UNITY_EDITOR
         UnityEngine.Debug.Break();
+        // NOTE: telling the Unity editor to stop the player if running on editor
+        UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
 #endif
-
         Environment.FailFast(message);
     }
 }

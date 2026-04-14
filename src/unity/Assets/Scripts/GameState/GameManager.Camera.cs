@@ -5,8 +5,19 @@ public partial class GameManager
 {
     private void SetupCamera(Camera camPrefab, IGameLogger logger)
     {
-        // NOTE: adding the camera inside the GameSetup object so it doesn't get destroyed
-        var cam = Instantiate(camPrefab, transform);
+        var cam = FindAnyObjectByType<Camera>();
+        if (cam is not null)
+        {
+#if !DEBUG
+            Guard.Panic("The game cannot start with a camera in Release mode!");
+#endif
+            logger.Warn?.Log("Game starting with custom camera!");
+        }
+        else
+        {
+            // NOTE: adding the camera inside the GameSetup object so it doesn't get destroyed
+            cam ??= Instantiate(camPrefab, transform);
+        }
 
         if (!Mathf.Approximately(cam.transform.position.z, DepthLayers.CAMERA_GLOBAL_Z))
         {

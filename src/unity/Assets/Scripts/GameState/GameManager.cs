@@ -5,19 +5,27 @@ using UnityEngine.SceneManagement;
 
 public partial class GameManager : MonoBehaviour
 {
+    private GameSettings _gameSettings = null!;
+    private IGameLogger _logger = null!;
+
     public void Awake()
     {
         var (events, i18n, logger) = SetupServices();
 
-        var gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
-        ValidateConfig(gameSettings, logger);
+        _gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
+        ValidateConfig(_gameSettings, logger);
 
         SubscribeQuitEvent(events, logger);
         StartI18n(i18n, logger);
-        ShowLoading(gameSettings.loadingScreenPrefab, logger);
-        SetupCamera(gameSettings.mainCameraPrefab, logger);
+        ShowLoading(_gameSettings.loadingScreenPrefab, logger);
 
         _ = DoSetupAsync(events, logger);
+        _logger = logger;
+    }
+
+    public void Start()
+    {
+        SetupCamera(_gameSettings.mainCameraPrefab, _logger);
     }
 
     private static void ValidateConfig(GameSettings? gameSettings, IGameLogger logger)
