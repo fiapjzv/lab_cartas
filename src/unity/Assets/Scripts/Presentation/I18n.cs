@@ -7,7 +7,7 @@ using Game.Core.Utils;
 /// <summary>Serviço de internacionalização de textos.</summary>
 public interface I18n
 {
-    /// <summary>Língua atuala do jogo.</summary>
+    /// <summary>Língua atual do jogo.</summary>
     Lang Lang { get; }
 
     /// <summary>Carrega síncronamente o que consegue de labels.</summary>

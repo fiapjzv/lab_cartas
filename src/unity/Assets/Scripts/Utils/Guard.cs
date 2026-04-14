@@ -5,8 +5,8 @@ using UnityEngine.UIElements;
 /// <summary>
 /// Centraliza verificações que garantem premissas.  O objetivo é facilitar o debug. Por exemplo:
 /// <ul>
-/// <li>Garantir que um elemento existe na UI e não mudou de nome.</lu>
-/// <li>Garantir que um componente está linkado no Unity Editor.</lu>
+/// <li>Garantir que um elemento existe na UI e não mudou de nome.</li>
+/// <li>Garantir que um componente está linkado no Unity Editor.</li>
 /// </ul>
 /// </summary>
 public static class Guard
