@@ -3,22 +3,11 @@ using UnityEngine;
 
 public partial class GameManager
 {
-    private void SetupCamera(Camera camPrefab, IGameLogger logger)
-    {
-        var cam = FindAnyObjectByType<Camera>();
-        if (cam is not null)
-        {
-#if !DEBUG
-            Guard.Panic("The game cannot start with a camera in Release mode!");
-#endif
-            logger.Warn?.Log("Game starting with custom camera!");
-        }
-        else
-        {
-            // NOTE: adding the camera inside the GameSetup object so it doesn't get destroyed
-            cam ??= Instantiate(camPrefab, transform);
-        }
+    private Camera _defaultCam = null!;
 
+    private void SetupDefaultCam(Camera camPrefab, IGameLogger logger)
+    {
+        var cam = Instantiate(camPrefab);
         if (!Mathf.Approximately(cam.transform.position.z, DepthLayers.CAMERA_GLOBAL_Z))
         {
             logger.Error?.Log(
@@ -38,6 +27,27 @@ public partial class GameManager
         cam.clearFlags = CameraClearFlags.SolidColor;
         cam.backgroundColor = color;
 
-        logger.Debug?.Log("Main camera setup complete!");
+        _defaultCam = cam;
+        logger.Debug?.Log("Default camera setup complete!");
+    }
+
+    private void AttachDefaultCam(IGameLogger logger)
+    {
+        var sceneCam = FindAnyObjectByType<Camera>();
+        if (sceneCam is not null)
+        {
+#if !DEBUG
+            Guard.Panic("The game cannot start with a camera in Release mode!");
+#endif
+            logger.Warn?.Log("Game starting with custom camera!");
+        }
+        else
+        {
+            logger.Debug?.Log("Using default camera");
+            sceneCam = _defaultCam;
+        }
+
+        // NOTE: adding the camera inside the GameManager object so it doesn't get destroyed
+        sceneCam.transform.SetParent(transform);
     }
 }

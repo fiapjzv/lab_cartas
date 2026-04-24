@@ -17,9 +17,12 @@ public partial class CardView : GameBehavior, IDraggable, IClickable
     private CardData? _cardData;
     private UIDocument _uiDocument = null!;
 
+    // private BoxCollider2D _boxCollider = null!;
+
     protected override void Init()
     {
         _uiDocument = GetComponent<UIDocument>();
+        // _boxCollider = GetComponent<BoxCollider2D>();
         SetUIViewTree();
     }
 

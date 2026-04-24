@@ -3,29 +3,27 @@ using UnityEngine;
 
 public partial class GameManager
 {
-    private void SubscribeQuitEvent(IEvents events, IGameLogger logger)
+    private static void SubscribeQuitEvent(IEvents events, IGameLogger logger)
     {
         events.Subscribe<QuitEvent>((evt) => DoQuit(evt, logger));
     }
 
-    private void DoQuit(QuitEvent evt, IGameLogger logger)
+    private static void DoQuit(QuitEvent evt, IGameLogger logger)
     {
         logger.Info?.Log("Quitting game!");
         // TODO: inform server that the player is quitting (simulating with 1 second delay)
         1
             .Seconds()
             .Delay()
-            .ContinueWith(
-                (_) =>
-                {
-                    logger.Info?.Log("Quiting now!");
+            .ContinueWith(_ =>
+            {
+                logger.Info?.Log($"Quiting due to: {evt.Reason}");
 #if UNITY_EDITOR
-                    // NOTE: telling the Unity editor to stop the player if running on editor
-                    UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
+                // NOTE: telling the Unity editor to stop the player if running on editor
+                UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
 #endif
-                    Application.Quit(exitCode: 0);
-                }
-            );
+                Application.Quit(exitCode: 0);
+            });
     }
 }
 

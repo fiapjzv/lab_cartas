@@ -17,6 +17,7 @@ public partial class GameManager : MonoBehaviour
 
         SubscribeQuitEvent(events, logger);
         StartI18n(i18n, logger);
+        SetupDefaultCam(_gameSettings.mainCameraPrefab, logger);
         ShowLoading(_gameSettings.loadingScreenPrefab, logger);
 
         _ = DoSetupAsync(events, logger);
@@ -25,7 +26,7 @@ public partial class GameManager : MonoBehaviour
 
     public void Start()
     {
-        SetupCamera(_gameSettings.mainCameraPrefab, _logger);
+        AttachDefaultCam(_logger);
     }
 
     private static void ValidateConfig(GameSettings? gameSettings, IGameLogger logger)
@@ -35,7 +36,7 @@ public partial class GameManager : MonoBehaviour
     }
 
     // NOTE: o ciclo de vida dos componentes unity são fire-and-forget deixando isso explícito aqui
-    private async Task DoSetupAsync(IEvents events, IGameLogger logger)
+    private static async Task DoSetupAsync(IEvents events, IGameLogger logger)
     {
         await TestServerConn(logger);
 

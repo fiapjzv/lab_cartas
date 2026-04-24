@@ -15,6 +15,8 @@ public class UnityLogger : IGameLogger
         Info = lvl <= LogLvl.Info ? new MsgLogger(UnityDebug.Log, LogLvl.Info) : null;
         Warn = lvl <= LogLvl.Warn ? new ExMsgLogger(UnityDebug.LogWarning, LogLvl.Warn) : null;
         Error = lvl <= LogLvl.Error ? new ExMsgLogger(UnityDebug.LogError, LogLvl.Error) : null;
+
+        // _type = GetType().FullName ?? GetType().Name;
     }
 
     private class MsgLogger : IMsgLogger

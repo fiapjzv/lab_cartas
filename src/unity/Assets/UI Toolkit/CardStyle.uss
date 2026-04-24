@@ -1,13 +1,20 @@
 #card-main {
-    width: 100%;
-    height: 100%;
+    /* NOTE: since the PPU is set 100 this is a 5x7 units card 
+     *       frame will actually take only 90% of this area to allow card content to exceed the frame */
+    width: 1000px;
+    height: 1400px;
 
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    /* NOTE: uncomment the following border for debug */
+    border-width: var(--border-width-sm);
+    border-color: var(--color-danger);
 
-    /* NOTE: forçando proporção padrão (ex: 5:7) */
-    aspect-ratio: 0.71; 
+    --color-card-basic-bg: #eeeeee;
+    --color-card-basic-border: #29b6f6;
+    --color-card-desc: rgba(0, 0, 0, 0.7);
 }
 
 #card-frame {
@@ -15,77 +22,111 @@
     height: 90%;
     position: relative;
     
-    border-width: 5px;
-    border-color: #D4AF37;
-    
-    border-radius: 8%;
+    border-width: var(--border-width-sm);
+    border-color: var(--color-primary);
+    border-radius: var(--border-radius-md);
 
     display: flex;
+
+    background-color: var(--color-card-basic-bg);
+}
+
+.detailed #card-frame {
     align-items: center;
-    align-content: center; 
+    align-content: center;
+    justify-content: flex-end;
+}
+
+.small #card-frame {
+    align-content: center;
     justify-content: flex-end;
 }
 
 #aura {
     position: absolute;
 
-    /* NOTE: 100px = 100 / 500 =>  */
-    width: 20%;
-    top: -4%; 
-
-    /* NOTE: 100px = 100 / 700 =>  */
-    height: 14%;
-    left: -6%;
+    border-width: var(--border-width-sm);
+    border-color: var(--color-card-basic-border);
+    border-radius: var(--border-radius-round);
 
     display: flex;
     align-items: center;
     justify-content: center;
+    
+    background-color: var(--color-card-basic-bg);
+}
 
-    border-width: 5px;
-    border-color: #D4AF37;
-    border-radius: 50%;
-    flex-shrink: 0;
+.detailed #aura {
+    width: 20%;
+    top: -4%;
 
-    background-color: white;
+    height: 14%;
+    left: -6%;
+}
+
+.small #aura {
+    width: 30%;
+    top: -4%;
+
+    height: 21%;
+    left: -6%;
 }
 
 #aura-value {
-    font-size: var(--font-size-lg);
+    font-size: var(--font-size-xl);
+    -unity-font-style: bold;
 }
 
-#type {
+#card-type {
     position: absolute;
-
-    /* NOTE: 100px = 100 / 500 =>  */
-    width: 20%;
-    top: 1%; 
-
-    /* NOTE: 100px = 100 / 700 =>  */
-    height: 14%;
-    right: 2%;
 
     display: flex;
     align-items: center;
     justify-content: center;
 
-    border-width: 5px;
-    border-color: #D4AF37;
-    border-radius: 50%;
-    flex-shrink: 0;
+    border-width: var(--border-width-sm);
+    border-color: var(--color-card-basic-border);
+    border-radius: var(--border-radius-round);
 
-    background-color: white;
+    background-color: var(--color-card-basic-bg);
 }
 
-#type-value {
+.detailed #card-type {
+    width: 20%;
+    top: 1%;
+
+    height: 14%;
+    right: 2%;
+}
+
+.small #card-type {
+    width: 30%;
+    top: 1%;
+
+    height: 21%;
+    right: 2%;
+}
+
+.detailed #type-value {
     font-size: var(--font-size-lg);
 }
 
-#name-container{
-    margin: 0% 5%;
+.small #type-value {
+    font-size: var(--font-size-xl);
+}
+
+.detailed #name-container {
+    margin: 0 5%;
+}
+
+.small #name-container {
+    margin: 5% ;
 }
 
 #card-name {
-    font-size: var(--font-size-md);
+    font-size: var(--font-size-lg);
+    white-space: normal;
+    -unity-font-style: bold;
 }
 
 #desc-container {
@@ -94,12 +135,12 @@
 
     margin: 5% 0;
 
-    border-radius: 5px;
-    background-color: rgba(255, 255, 255, 0.15);
+    border-radius: var(--border-radius-sm);
+    background-color: var(--color-card-desc);
 }
 
 #desc-text {
-    margin: 5%;
-    white-space: normal;
+    margin: 10%;
     font-size: var(--font-size-sm);
+    white-space: normal;
 }

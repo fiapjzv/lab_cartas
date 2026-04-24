@@ -1,16 +1,16 @@
 <ui:UXML xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:ui="UnityEngine.UIElements" xmlns:uie="UnityEditor.UIElements" noNamespaceSchemaLocation="../../UIElementsSchema/UIElements.xsd" editor-extension-mode="False">
     <Style src="project://database/Assets/UI%20Toolkit/BaseStyle.uss?fileID=7433441132597879392&amp;guid=e5b2fa8b30d4a1e848578ef55db058ae&amp;type=3#BaseStyle"/>
     <Style src="project://database/Assets/UI%20Toolkit/CardStyle.uss?fileID=7433441132597879392&amp;guid=c62f16dacac1753169944138cf5c4e77&amp;type=3#CardStyle"/>
-    <ui:VisualElement name="card-main">
+    <ui:VisualElement name="card-main" class="detailed">
         <ui:VisualElement name="card-frame" >
             <ui:VisualElement name="aura">
                 <ui:Label name="aura-value" text="9"/>
             </ui:VisualElement>
-            <ui:VisualElement name="type">
+            <ui:VisualElement name="card-type">
                 <ui:Label name="type-value" text="👹"/>
             </ui:VisualElement>
             <ui:VisualElement name="name-container">
-                <ui:Label name="card-name" text="Monstro Bolado"/>
+                <ui:Label name="card-name" text="Monstro Bolado da casa do capeta"/>
             </ui:VisualElement>
             <ui:VisualElement name="desc-container">
                 <ui:Label name="desc-text" text="Ao entrar no jogo gera 5 de aura por turno. Pra você ver que doidera loca." />

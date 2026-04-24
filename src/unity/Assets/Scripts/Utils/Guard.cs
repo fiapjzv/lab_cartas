@@ -24,21 +24,20 @@ public static class Guard
             return obj;
         }
 
-        var error = $"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.";
-        logger.Error?.Log(error);
-        Panic(error);
-        return obj!;
+        Panic($"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.");
+        return null!;
     }
 
     /// <summary>Garante que o texto não seja nulo ou vazio.</summary>
-    public static void NotEmpty(string param, IGameLogger logger)
+    public static string NotEmpty(string param, IGameLogger logger)
     {
-        if (string.IsNullOrEmpty(param))
+        if (!string.IsNullOrEmpty(param))
         {
-            var error = "Expected param cannot to be empty. You might have forgotten to link a component in Unity.";
-            logger.Error?.Log(error);
-            Panic(error);
+            return param;
         }
+
+        Panic("Expected param cannot to be empty. You might have forgotten to link a component in Unity.");
+        return null!;
     }
 
     /// <summary>
@@ -55,9 +54,7 @@ public static class Guard
             return element;
         }
 
-        var error = $"Could not find element '{elementName}' on '{root.name}'";
-        logger.Error?.Log(error);
-        Panic(error);
+        Panic($"Could not find element '{elementName}' on '{root.name}'");
 
         return null!;
     }

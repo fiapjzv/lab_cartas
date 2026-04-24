@@ -1,8 +1,6 @@
 :root {
     margin: 0;
-    margin: 0;
     padding: 0;
-    box-sizing: border-box;
 
     /* =========================
        COLORS — BASE
@@ -43,17 +41,11 @@
     /* =========================
        FONT — SIZE
        ========================= */
-    --font-size-xs: 16px;
-    --font-size-sm: 24px;
-    --font-size-md: 32px;
-    --font-size-lg: 40px;
-    --font-size-xl: 60px;
-
-    /* =========================
-       FONT — WEIGHT (semantic)
-       ========================= */
-    --font-weight-regular: 400;
-    --font-weight-bold: 700;
+    --font-size-xs: 30px;
+    --font-size-sm: 50px;
+    --font-size-md: 60px;
+    --font-size-lg: 80px;
+    --font-size-xl: 120px;
 
     /* =========================
        LINE HEIGHT
@@ -74,10 +66,17 @@
     /* =========================
        BORDER RADIUS
        ========================= */
-    --radius-sm: 3%;
-    --radius-md: 5%;
-    --radius-lg: 10%;
-    --radius-round: 50%;
+    --border-radius-sm: 25px;
+    --border-radius-md: 50px;
+    --border-radius-lg: 100px;
+    --border-radius-round: 50%;
+
+    /* =========================
+       BORDER RADIUS
+       ========================= */
+    --border-width-sm: 3px;
+    --border-width-md: 5px;
+    --border-width-lg: 10px;
 
     /* =========================
        SHADOW / ELEVATION
