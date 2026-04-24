@@ -30,4 +30,7 @@ public partial class GameManager
         public const float CAMERA_GLOBAL_Z = -10f;
         public const float TABLE_ZONE_Z = 0f;
     }
+
+    /// <summary>Viewport height in world units using the default camera orthographic projection</summary>
+    public const float VIEWPORT_HEIGHT = 14f;
 }

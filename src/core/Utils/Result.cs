@@ -10,6 +10,12 @@ public readonly struct Result
 
     /// <summary>Cria uma operação foi um fracasso e retornou o erro <paramref name="error" />.</summary>
     public static Result<T> Err<T>(string error) => new(value: default!, error);
+
+    /// <inheritdoc cref="Result{T}" />
+    public static Result<Unit> Ok() => new(default, error: null);
+
+    /// <inheritdoc cref="Err{T}(string)" />
+    public static Result<Unit> Err(string error) => new(value: default, error);
 }
 
 /// <summary>

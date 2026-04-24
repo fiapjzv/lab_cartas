@@ -1,5 +1,6 @@
 using System;
 using Game.Core.Services;
+using Game.Core.Utils;
 using UnityEngine.UIElements;
 
 /// <summary>
@@ -76,5 +77,16 @@ public static class Guard
         UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
 #endif
         Environment.FailFast(message);
+    }
+
+    public static void Assert(Func<Result<Unit>> check)
+    {
+        var result = check();
+        if (result.IsOk(out _, out var error))
+        {
+            return;
+        }
+
+        Panic(error);
     }
 }

@@ -4,8 +4,8 @@ using UnityEngine;
 public class InGameSceneLoader : GameBehavior
 {
     [field: SerializeField]
-    private GameObject CardPrefab { get; set; } = null!;
-
+    private GameObject SmallCardPrefab { get; set; } = null!;
+        
     [field: SerializeField]
     private GameObject CardZonePrefab { get; set; } = null!;
 
@@ -24,16 +24,17 @@ public class InGameSceneLoader : GameBehavior
     private void RenderPlayerHand()
     {
         Logger.Debug?.Log($"Loading {CARD_COUNT} cards: CardSpacing = {CARD_SPACING}; CardY = {CARD_Y}");
-        DistributeGameObjects(CardPrefab, CARD_COUNT, CARD_SPACING, CARD_Y);
+        DistributeGameObjects(SmallCardPrefab, CARD_COUNT, CARD_SPACING, CARD_Y);
     }
 
-    private static void DistributeGameObjects(GameObject prefab, int count, float spacing, float posY)
+    private void DistributeGameObjects(GameObject prefab, int count, float spacing, float posY)
     {
-        var zoneWidth = prefab.transform.localScale.x;
-        var layoutWidth = count * zoneWidth + (count - 1) * spacing;
-        var cardZoneCenterStep = zoneWidth + spacing;
-        var startX = -layoutWidth / 2f + zoneWidth / 2f;
+        var objWidth = prefab.transform.localScale.x;
+        var layoutWidth = count * objWidth + (count - 1) * spacing;
+        var cardZoneCenterStep = objWidth + spacing;
+        var startX = -layoutWidth / 2f + objWidth / 2f;
 
+        Logger.Debug?.Log($"Starting to distribute {count} objects: ObjWidth={objWidth}, layoutWidth={layoutWidth}, CardZoneCenterStep={cardZoneCenterStep}, startX={startX}");
         for (var i = 0; i < count; i++)
         {
             var pos = new Vector3(startX + i * cardZoneCenterStep, posY, GameManager.DepthLayers.TABLE_ZONE_Z);

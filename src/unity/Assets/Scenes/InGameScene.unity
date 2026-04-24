@@ -164,7 +164,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13195e65a52ff88f19a9cbaaa321716d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InGameSceneLoader
-  <CardPrefab>k__BackingField: {fileID: 8783566273023176763, guid: 8d084e4a636a3dac386048a3a0bc6aa7, type: 3}
+  <SmallCardPrefab>k__BackingField: {fileID: 8783566273023176763, guid: 8d084e4a636a3dac386048a3a0bc6aa7, type: 3}
   <CardZonePrefab>k__BackingField: {fileID: 6759360494302460778, guid: 4c4efdd1200d81642ae032ac5ad24e72, type: 3}
 --- !u!114 &234854603
 MonoBehaviour:
