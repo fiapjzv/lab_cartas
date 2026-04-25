@@ -16,7 +16,7 @@ public partial class CardZoneView
         {
             PlayerHand => (viewportSize * PLAYER_HAND_SCREEN_RATIO, PLAYER_HAND_CENTER_POS),
             PlayerDeck => (viewportSize * DECK_SCREEN_RATIO, DECK_CENTER_POS),
-            InGameArea => (viewportSize * IN_GAME_SCREEN_RATIO, IN_GAME_CENTER_POS),
+            BattlefieldArea => (viewportSize * IN_GAME_SCREEN_RATIO, IN_GAME_CENTER_POS),
             Graveyard => (viewportSize * GRAVEYARD_SCREEN_RATIO, GRAVEYARD_CENTER_POS),
             _ => throw new ArgumentOutOfRangeException(nameof(ZoneType), ZoneType.ToString()),
         };

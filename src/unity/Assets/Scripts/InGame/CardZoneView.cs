@@ -31,7 +31,7 @@ public partial class CardZoneView : GameBehavior, ICardZone
         PlayerDeck,
 
         /// <summary>Cards that are in game generating effects and aura to the player.</summary>
-        InGameArea,
+        BattlefieldArea,
 
         /// <summary>The pile for used, destroyed or discarded cards.</summary>
         Graveyard,
