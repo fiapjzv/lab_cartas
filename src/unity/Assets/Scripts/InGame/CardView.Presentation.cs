@@ -7,8 +7,8 @@ public partial class CardView
     {
         var (sizeFactor, visualTree) = CurrentState switch
         {
-            State.SMALL => (SMALL_CARD_SCREEN_FACTOR, CardSmallVT),
-            State.DETAILS => (DETAILS_CARD_SCREEN_FACTOR, CardDetailsVT),
+            State.SMALL => (SMALL_CARD_SCREEN_RATIO_HEIGHT, CardSmallVT),
+            State.DETAILS => (DETAILS_CARD_SCREEN_RATIO_HEIGHT, CardDetailsVT),
             _ => throw new ArgumentOutOfRangeException(nameof(CurrentState), CurrentState.ToString()),
         };
 
@@ -26,8 +26,8 @@ public partial class CardView
     //       these multipliers will ensure:
     //          - small card occupying 35% of the screen
     //          - detailed card occupying 90% of the screen
-    private const float SMALL_CARD_SCREEN_FACTOR = 0.35f;
-    private const float DETAILS_CARD_SCREEN_FACTOR = 0.9f;
+    public const float SMALL_CARD_SCREEN_RATIO_HEIGHT = 0.35f;
+    private const float DETAILS_CARD_SCREEN_RATIO_HEIGHT = 0.9f;
     private const float CARD_ASPECT_RATIO = 5f / 7;
 
     private const float WORLD_UNITS_BASE_HEIGHT = GameManager.VIEWPORT_HEIGHT;
