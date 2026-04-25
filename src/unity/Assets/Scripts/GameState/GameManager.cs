@@ -10,7 +10,7 @@ public partial class GameManager : MonoBehaviour
 
     public void Awake()
     {
-        var (events, i18n, logger) = SetupServices();
+        var (events, i18n, logger) = SetupBasicServices();
 
         _gameSettings = Resources.Load<GameSettings>(GAME_SETTINGS_CONFIG_PATH);
         ValidateConfig(_gameSettings, logger);
@@ -19,6 +19,7 @@ public partial class GameManager : MonoBehaviour
         StartI18n(i18n, logger);
         SetupDefaultCam(_gameSettings.mainCameraPrefab, logger);
         ShowLoading(_gameSettings.loadingScreenPrefab, logger);
+        SetupGameServices();
 
         _ = DoSetupAsync(events, logger);
         _logger = logger;

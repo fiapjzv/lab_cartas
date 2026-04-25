@@ -20,25 +20,18 @@ public static class Guard
     public static T NotNull<T>(T? obj, IGameLogger logger)
         where T : class
     {
-        if (obj is not null)
-        {
-            return obj;
-        }
-
-        Panic($"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity.");
-        return null!;
+        return obj
+            ?? throw Panic(
+                $"Expected {typeof(T).Name} not to be null. You might have forgotten to link a component in Unity."
+            );
     }
 
     /// <summary>Garante que o texto não seja nulo ou vazio.</summary>
     public static string NotEmpty(string param, IGameLogger logger)
     {
-        if (!string.IsNullOrEmpty(param))
-        {
-            return param;
-        }
-
-        Panic("Expected param cannot to be empty. You might have forgotten to link a component in Unity.");
-        return null!;
+        return !string.IsNullOrEmpty(param)
+            ? param
+            : throw Panic("Expected param cannot to be empty. You might have forgotten to link a component in Unity.");
     }
 
     /// <summary>
@@ -50,14 +43,7 @@ public static class Guard
     {
         var element = root.Q<T>(elementName);
 
-        if (element is not null)
-        {
-            return element;
-        }
-
-        Panic($"Could not find element '{elementName}' on '{root.name}'");
-
-        return null!;
+        return element ?? throw Panic($"Could not find element '{elementName}' on '{root.name}'");
     }
 
     /// <inheritdoc cref="ElementIsPresent{T}(VisualElement, string, IGameLogger)" />
@@ -67,7 +53,7 @@ public static class Guard
     }
 
     [System.Diagnostics.DebuggerHidden]
-    public static void Panic(string message)
+    public static Exception Panic(string message)
     {
         UnityEngine.Debug.LogError($"FATAL PANIC: {message}");
 
@@ -75,8 +61,10 @@ public static class Guard
         UnityEngine.Debug.Break();
         // NOTE: telling the Unity editor to stop the player if running on editor
         UnityEditor.EditorApplication.delayCall += UnityEditor.EditorApplication.ExitPlaymode;
-#endif
+#else
         Environment.FailFast(message);
+#endif
+        return new Exception(message);
     }
 
     public static void Assert(Func<Result<Unit>> check)
@@ -87,6 +75,6 @@ public static class Guard
             return;
         }
 
-        Panic(error);
+        throw Panic(error);
     }
 }

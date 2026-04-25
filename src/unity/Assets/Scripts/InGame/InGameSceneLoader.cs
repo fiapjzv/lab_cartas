@@ -6,6 +6,8 @@ public partial class InGameSceneLoader : GameBehavior
     [field: SerializeField]
     private GameObject GameFieldPrefab { get; set; } = null!;
 
+    private CardBattleState _battleState;
+
     // [field: SerializeField]
     // private GameObject SmallCardPrefab { get; set; } = null!;
 
@@ -14,7 +16,10 @@ public partial class InGameSceneLoader : GameBehavior
 
     protected override void Init()
     {
-        SetupGameField();
+        var playerAccount = Guard.NotNull(Service.Get<IPlayerAccount>(), Logger);
+        var playerDeck = Guard.NotNull(Service.Get<IPlayerDecks>().CurrDeck(), Logger);
+        var match = Guard.NotNull(Service.Get<IBattleMatchMaker>(), Logger).CurrMatch();
+        _battleState = new CardBattleState(playerAccount.Id, playerDeck.Id, match.Sorcerers());
         // RenderPlayerHand();
     }
 

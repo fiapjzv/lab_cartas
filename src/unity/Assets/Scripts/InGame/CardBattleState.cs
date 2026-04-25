@@ -1,6 +1,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using CardInstanceId = System.Guid;
+using DeckId = System.Guid;
 using SorcererId = System.Guid;
 
 /// <summary>Represents the snapshot of an active card battle.</summary>
@@ -8,6 +9,8 @@ public struct CardBattleState
 {
     /// <summary>Unique ID of the player running the app.</summary>
     public SorcererId PlayerId { get; }
+
+    public DeckId PlayerDeckId { get; }
 
     /// <summary>Collection of state data for all sorcerers in the battle (including the player).</summary>
     public SorcererState[] SorcerersState { get; }
@@ -18,9 +21,10 @@ public struct CardBattleState
     /// <summary>Slots of the player hand (might be empty).</summary>
     public CardInstanceId?[] CurrentPlayerHand { get; }
 
-    public CardBattleState(SorcererId playerId, SorcererInBattle[] sorcerersInBattle)
+    public CardBattleState(SorcererId playerId, DeckId playerDeckId, SorcererInBattle[] sorcerersInBattle)
     {
         PlayerId = playerId;
+        PlayerDeckId = playerDeckId;
         SorcerersState = sorcerersInBattle.Select(SorcererState.Create).ToArray();
         CurrentPlayerHand = new CardInstanceId?[GameRules.MAX_CARDS_IN_SORCERER_HAND];
         TurnCount = 0;

@@ -7,7 +7,7 @@ public partial class GameManager
     private static async Task TestServerConn(IGameLogger logger)
     {
         // NOTE: essa espera de 2 segundos está simulando a conexão com o servidor
-        await 2.Seconds().Delay();
+        await 1.Seconds().Delay();
         logger.Debug?.Log("Server connection established!");
     }
 }
