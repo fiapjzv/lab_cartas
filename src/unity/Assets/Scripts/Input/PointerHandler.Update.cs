@@ -26,24 +26,26 @@ public partial class PointerHandler
     private void HandleObjClick(Pointer pointer)
     {
         var pointerPos = GetWorldPosition(pointer.position.ReadValue());
-        var hit = Physics2D.OverlapPoint(pointerPos);
+        // ReSharper disable once Unity.PreferNonAllocApi
+        var hits = Physics2D.OverlapPointAll(pointerPos);
 
-        if (hit is null)
+        if (hits is null)
         {
             Logger.Debug?.Log("Player clicked on nothing");
             return;
         }
 
-        if (!hit.TryGetComponent<IClickable>(out _))
+        var topHit = hits.GetHitOnTop<IClickable>();
+        if (topHit is null)
         {
             Logger.Debug?.Log($"Clicked object is not {nameof(IClickable)}");
             return;
         }
 
-        Logger.Debug?.Log($"Player clicked on {hit.gameObject}");
-        _currSelected = hit.gameObject;
+        _currSelected = topHit.gameObject;
         _currClickPos = pointerPos;
-        Events.Publish(new PointerClickEvt(hit, pointerPos));
+        Events.Publish(new PointerClickEvt(topHit, pointerPos));
+        Logger.Debug?.Log($"Player clicked on {topHit.gameObject}");
     }
 
     private void HandleObjDrag(Pointer pointer)
